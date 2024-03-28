@@ -13,11 +13,11 @@
                    <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
                </a>
            </li>
-           <li><a href="javaScript:void();"><i class="zmdi zmdi-view-dashboard"></i> <span>Produits</span></a></li>
-           <li><a href="javaScript:void();"><i class="zmdi zmdi-view-dashboard"></i> <span>Devis</span></a></li>
-           <li><a href="javaScript:void();"><i class="zmdi zmdi-view-dashboard"></i> <span>Facturs</span></a></li>
-           <li><a href="javaScript:void();"><i class="zmdi zmdi-view-dashboard"></i> <span>Clients</span></a></li>
-           <li><a href="javaScript:void();"><i class="zmdi zmdi-view-dashboard"></i> <span>Paraméters</span></a></li>
+           <li><a href="javaScript:void();"><i class="zmdi zmdi-archive"></i> <span>Produits</span></a></li>
+           <li><a href="javaScript:void();"><i class="zmdi zmdi-assignment"></i> <span>Devis</span></a></li>
+           <li><a href="javaScript:void();"><i class="zmdi zmdi-file-text"></i> <span>Facturs</span></a></li>
+           <li><a href="javaScript:void();"><i class="zmdi zmdi-account-calendar"></i> <span>Clients</span></a></li>
+           <li><a href="javaScript:void();"><i class="zmdi zmdi-settings"></i> <span>Paraméters</span></a></li>
            
 
        </ul>
