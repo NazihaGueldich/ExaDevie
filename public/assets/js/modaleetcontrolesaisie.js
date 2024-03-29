@@ -167,3 +167,84 @@ function verifparam() {
         msgerr.innerHTML = msg;
     }
 }
+
+ /* clients */
+ function openModalClient(cin, nom, prenom, email,  adresse, tel, id, action) {
+    if (action == "Modifier") {
+        $("#cin").val(cin);
+        $("#nom").val(nom);
+        $("#prenom").val(prenom);
+        $("#email").val(email);
+        $("#adresse").val(adresse);
+        $("#tel").val(tel);
+        $("#formclt").attr('action', "client/" + id);
+        $("input[name='_method']").val('put');
+        $("#addcltLabel").html("Modifier un Client");
+    } else {
+        $("#cin").val("");
+        $("#nom").val("");
+        $("#prenom").val("");
+        $("#email").val("");
+        $("#adresse").val("");
+        $("#tel").val("");
+        $("#formclt").attr('action', RouteStore);
+        $("input[name='_method']").val('post');
+        $("#addcltLabel").html("Ajouter un Client");
+    }
+    modaleInclose('addclt');
+
+    $('#addclt').modal("show");
+}
+
+function verifClt() {
+    msg = '';
+    find = 0;
+    msgerr = document.getElementById("msgerr");
+    var cin = $("#cin").val().trim();
+    var nom = $("#nom").val().trim();
+    var prenom = $("#prenom").val().trim();
+    var email = $("#email").val().trim();
+    var tel = $("#tel").val().trim();
+    var adresse = $("#adresse").val().trim();
+   
+    if (cin.length == 0) {
+        msg = msg + "- Vous devez choisir le CIN ou un MF !</br>";
+        find = 1;
+    }
+    if (nom.length == 0) {
+        msg = msg + "- Vous devez choisir le nom !</br>";
+        find = 1;
+    } 
+    if (prenom.length == 0) {
+        msg = msg + "-  Vous devez choisir le prénom !</br>";
+        find = 1;
+    }
+    if (adresse.length == 0) {
+        msg = msg + "- Vous devez choisir une adresse !</br>";
+        find = 1;
+    }
+    if (tel.length == 0) {
+        msg = msg + "- Vous devez choisir le numéro téléphone !</br>";
+        find = 1;
+    } else if (tel.length != 8) {
+        msg = msg + "- Le nombre doit contenir 8 chiffres !</br>";
+        find = 1;
+    }
+    if (email.length == 0) {
+        msg = msg + "- Vous devez choisir l’adresse e-mail !</br>";
+        find = 1;
+    } else if (email.indexOf('@') == -1) {
+        msg = msg + "- Vous devez choisir l’adresse email Le email doit contenir @ !</br>";
+        find = 1;
+    }
+
+    if (find == 0) {
+        const myButton = document.querySelector('#myButton');
+        myButton.disabled = true;
+        $("#formclt").submit();
+        console.log('tsagal');
+    } else {
+        msgerr.style.display = "block";
+        msgerr.innerHTML = msg;
+    }
+}

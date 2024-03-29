@@ -131,9 +131,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="verifparam()"
+                        <button type="button" class="btn btn-success" onclick="verifparam()"
                             id='myButton'>Enregistrer</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary"
+                        <button type="button" data-dismiss="modal" class="btn btn-warning"
                             onclick="closeModal('addparam')">Annuler</button>
                     </div>
                 </form>
