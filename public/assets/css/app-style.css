@@ -957,8 +957,8 @@ body.bg-theme15 {
 
 .btn-success {
 	color: #fff;
-	background-color: #04b962;
-	border-color: #04b962
+    background-color: #04B9A2;
+    border-color: #04B9A2;
 }
 .btn-success:hover {
 	color: #fff;
@@ -1012,8 +1012,8 @@ body.bg-theme15 {
 
 .btn-warning {
 	color: #fff;
-	background-color: #ff8800;
-	border-color: #ff8800
+	background-color: #FF8854;
+	border-color: #FF8854
 }
 .btn-warning:hover {
 	color: #fff;
@@ -2056,8 +2056,8 @@ table.grid td {
 }
 .alert-danger {
     color: #ffffff;
-    background-color: #f5365c;
-    border-color: #f5365c;
+    background-color: #F53661;
+    border-color: #F53661;
 }
 .alert-danger .alert-link {
     color: #ffcacf;

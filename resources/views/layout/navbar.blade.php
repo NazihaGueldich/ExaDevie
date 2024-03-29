@@ -32,8 +32,6 @@
                         </a>
                     </li>
                     <li class="dropdown-divider"></li>
-                    <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
-                    <li class="dropdown-divider"></li>
                     <li class="dropdown-item">  <a class="dropdown-item" href="{{ route('logout') }}"><i class="icon-power mr-2"></i> Logout </a></li>
                 </ul>
             </li>

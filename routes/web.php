@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProduitsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function () {
+
+    //produits
+    Route::resource("produits", ProduitsController::class);
+    Route::get('produits/archive/{id}/{val}', [ProduitsController::class, 'archive'])->name('produits.archive');
+
+});
 require __DIR__.'/auth.php';
