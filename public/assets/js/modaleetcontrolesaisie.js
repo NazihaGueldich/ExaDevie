@@ -78,3 +78,92 @@ function verifProd() {
         msgerr.innerHTML = msg;
     }
 }
+
+//parameter
+function openModalParam(nom, logo, email, tel, rib, mf, adresse, fax, id, action) {
+    if (action == "Modifier") {
+        $("#imgrest").show();
+        $("#nom").val(nom);
+        $("#email").val(email);
+        $("#tel").val(tel);
+        $("#rib").val(rib);
+        $("#mf").val(mf);
+        $("#adresse").val(adresse);
+        $("#fax").val(fax);
+        $("#imgrest").attr('src', "{{ asset('images') }}/" + logo);
+        $("#formParam").attr('action', "parameter/" + id);
+        $("input[name='_method']").val('put');
+    } else {
+        $("#nom").val("");
+        $("#email").val("");
+        $("#tel").val("");
+        $("#rib").val("");
+        $("#mf").val("");
+        $("#fax").val("");
+        $("#imgrest").hide();
+        $("#imgrest").hide();
+        $("#formParam").attr('action', RouteStore);
+        $("input[name='_method']").val('post');
+    }
+    $("#addparamLabel").html(action + " les informations du societe")
+    modaleInclose('addparam');
+    $('#addparam').modal("show");
+}
+
+function verifparam() {
+    msg = '';
+    find = 0;
+    msgerr = document.getElementById("msgerr");
+    var nom = $("#nom").val().trim();
+    var email = $("#email").val().trim();
+    var tel = $("#tel").val().trim();
+    var rib = $("#rib").val().trim();
+    var mf = $("#mf").val().trim();
+    var adresse = $("#adresse").val().trim();
+    var fax = $("#fax").val().trim();
+
+    if (nom.length == 0) {
+        msg = msg + "- Vous devez choisir le nom !</br>";
+        find = 1;
+    }
+    if (email.length == 0) {
+        msg = msg + "- Vous devez choisir l'adresse e-mail !</br>";
+        find = 1;
+    } else if (email.indexOf('@') == -1) {
+        msg = msg + "- L'e-mail doit conterir @ !</br>";
+        find = 1;
+    }
+    if (tel.length == 0) {
+        msg = msg + "- Vous devez choisir le numéro de telephone !</br>";
+        find = 1;
+    } else if (tel.length != 8) {
+        msg = msg + "- Le numéro doit contenir 8 chiffre!</br>";
+        find = 1;
+    }
+    if (rib.length == 0) {
+        msg = msg + "- Vous devez choisir le rib !</br>";
+        find = 1;
+    }
+    if (mf.length == 0) {
+        msg = msg + "- Vous devez choisir la matricule fiscale !</br>";
+        find = 1;
+    }
+    if (adresse.length == 0) {
+        msg = msg + "- Vous devez choisir l'adresse !</br>";
+        find = 1;
+    }
+    if (fax.length == 0) {
+        msg = msg + "- Vous devez choisir le numéro de fax !</br>";
+        find = 1;
+    }
+
+    if (find == 0) {
+        const myButton = document.querySelector('#myButton');
+        myButton.disabled = true;
+        $("#formParam").submit();
+        console.log('tsagal');
+    } else {
+        msgerr.style.display = "block";
+        msgerr.innerHTML = msg;
+    }
+}
