@@ -42,10 +42,10 @@
                                     @endif
                                 </td>
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
-                                    <button class="btn btn-sm btn-warning m-1">
+                                    <a href="{{ route('devis.edit', $devi->id) }}"  class="btn btn-sm btn-warning m-1">
                                         <i class="zmdi zmdi-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-warning m-1">
+                                    </a>
+                                    <button class="btn btn-sm btn-info m-1">
                                         Detaille
                                     </button>
                                 </td>

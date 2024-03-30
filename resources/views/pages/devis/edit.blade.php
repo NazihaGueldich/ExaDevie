@@ -7,24 +7,34 @@
             <div class="card-body">
                 <div class="card-title">Information du devis</div>
                 <hr>
-                <form action="{{ route('devis.store') }}" method="POST" id="formdevis">
+                <p class="text-lg-right"><strong>Date: </strong>{{ $devi->created_at }}</p>
+
+                <form action="{{ route('devis.update', ['devi' => $devi->id]) }}" method="POST" id="formdevis">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     <p class="alert alert-danger" style="display:none" id="msgerr"></p>
+                    <input hidden value="{{$devi->id}}" name="devi_id">
                     <div class="form-group row">
                         <label for="id_client" class="col-sm-1 col-form-label">Clients</label>
                         <div class="col-sm-4">
                             <select class="form-control" id="id_client" name="id_client" required>
-                                <option value="" disabled selected>Choisir un client</option>
+                                <option value="" disabled>Choisir un client</option>
                                 @foreach ($clients as $client)
-                                    <option value="{{ $client->id }}">{{ $client->nom }} {{ $client->prenom }}</option>
+                                    @if ($client->id == $devi->id_client)
+                                        <option value="{{ $client->id }}" selected>{{ $client->nom }}
+                                            {{ $client->prenom }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $client->id }}">{{ $client->nom }} {{ $client->prenom }}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="input-2">Sujet</label>
-                        <textarea type="text" class="form-control" id="sujet" name="sujet" placeholder="Saisire le sujet du devi"></textarea>
+                        <textarea type="text" class="form-control" id="sujet" name="sujet">{{ $devi->sujet }}</textarea>
                     </div>
                     {{-- lignie devis --}}
                     <hr style="width: 250px">
@@ -36,15 +46,131 @@
                         <div>
                             <button type="button" id="addBtn" class="btn btn-success">+</button>
                             <button type="button" id="removeBtn" class="btn btn-warning">-</button>
-                            <input hidden id='nblign' name="nblign" value="0">
+                            <input hidden id='nblign' name="nblign" value="{{ $nblignie }}">
                         </div>
                     </div>
 
                     <div id="lifgnies">
+                        <?php $i = 0; ?>
+                        @foreach ($ligniedevis as $ligniedevi)
+                            <?php $i++; ?>
+                            <p class="alert alert-danger" style="display:none" id="msgerr{{ $i }}"></p>
+
+                            <div class="form-group row mt-lg-3">
+                                <label for="name" class="col-sm-4 col-form-label">Type</label>
+                                <div class="col-sm-8 row">
+                                    <label class="container col-sm-6">
+                                        <input type="radio" id="prod{{ $i }}" name="type{{ $i }}"
+                                            value="0" onclick="changeType({{ $i }})"
+                                            {{ $ligniedevi->type == 0 ? 'checked' : '' }}>
+                                        Produits
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="container col-sm-6">
+                                        <input type="radio" id="serv{{ $i }}" name="type{{ $i }}"
+                                            value="1" onclick="changeType({{ $i }})"
+                                            {{ $ligniedevi->type == 1 ? 'checked' : '' }}>
+                                        Services
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            @if ($ligniedevi->type == 0)
+                                <div id="produit{{ $i }}">
+                                    <div class="form-group row">
+                                        <label for="id_produit" class="col-sm-1 offset-1 col-form-label">Produits</label>
+                                        <div class="col-sm-3 p-0">
+                                            <select class="form-control" id="id_produit{{ $i }}"
+                                                name="id_produit{{ $i }}">
+                                                <option value="" disabled selected>Choisir un produit</option>
+                                                @foreach ($produits as $produit)
+                                                    @if ($produit->id == $ligniedevi->id_produit)
+                                                        <option value="{{ $produit->id }}" selected>{{ $produit->nom }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <label for="input-2" class="col-sm-1 col-form-label">Quantité</label>
+                                        <div class="col-sm-3">
+                                            <input type="number" class="form-control" id="quantiter{{ $i }}"
+                                                name="quantiter{{ $i }}" value="{{ $ligniedevi->quantiter }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="service{{ $i }}" style="display: none">
+                                    <label for="input-2">Deseigniation</label>
+                                    <textarea type="text" class="form-control" id="designiation{{ $i }}"
+                                        name="designiation{{ $i }}" placeholder="Saisir le service"></textarea>
+                                    <div class="form-group row mt-3">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">Prix U</label>
+                                        <input type="number" class="form-control col-sm-3" id="prix{{ $i }}"
+                                            name="prix{{ $i }}" placeholder="Saisir le prix unitaire">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">TVA</label>
+                                        <input type="number" class="form-control col-sm-3" id="tva{{ $i }}"
+                                            name="tva{{ $i }}" placeholder="Saisir le TVA">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">THT</label>
+                                        <input type="number" class="form-control col-sm-3" id="tht{{ $i }}"
+                                            name="tht{{ $i }}" placeholder="Saisir le THT">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">PTTTC</label>
+                                        <input type="number" class="form-control col-sm-3"
+                                            id="ptttc{{ $i }}" name="ptttc{{ $i }}"
+                                            placeholder="Saisir le PTTTC">
+                                    </div>
+                                </div>
+                            @else
+                                <div id="produit{{ $i }}" style="display: none">
+                                    <div class="form-group row">
+                                        <label for="id_produit" class="col-sm-1 offset-1 col-form-label">Produits</label>
+                                        <div class="col-sm-3 p-0">
+                                            <select class="form-control" id="id_produit{{ $i }}"
+                                                name="id_produit{{ $i }}">
+                                                <option value="" disabled selected>Choisir un produit</option>
+                                                @foreach ($produits as $produit)
+                                                    <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <label for="input-2" class="col-sm-1 col-form-label">Quantité</label>
+                                        <div class="col-sm-3">
+                                            <input type="number" class="form-control" id="quantiter{{ $i }}"
+                                                name="quantiter{{ $i }}" placeholder="Saisir la quantité">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="service{{ $i }}" style="display: block">
+                                    <label for="input-2">Deseigniation</label>
+                                    <textarea type="text" class="form-control" id="designiation{{ $i }}"
+                                        name="designiation{{ $i }}"> {{ $ligniedevi->designiation }}</textarea>
+                                    <div class="form-group row mt-3">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">Prix U</label>
+                                        <input type="number" class="form-control col-sm-3" id="prix{{ $i }}"
+                                            name="prix{{ $i }}" value="{{ $ligniedevi->prix }}">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">TVA</label>
+                                        <input type="number" class="form-control col-sm-3" id="tva{{ $i }}"
+                                            name="tva{{ $i }}" value="{{ $ligniedevi->tva }}">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">THT</label>
+                                        <input type="number" class="form-control col-sm-3" id="tht{{ $i }}"
+                                            name="tht{{ $i }}" value="{{ $ligniedevi->tht }}">
+                                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">PTTTC</label>
+                                        <input type="number" class="form-control col-sm-3"
+                                            id="ptttc{{ $i }}" name="ptttc{{ $i }}"
+                                            value="{{ $ligniedevi->ptttc }}">
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+
                     </div>
 
                     <div class="form-group text-lg-right mt-3">
-                        <button  type="button" class="btn btn-light px-5" id="myButton"
+                        <button type="button" class="btn btn-light px-5" id="myButton"
                             onclick="verifier()">Enregistrer</button>
                     </div>
                 </form>
@@ -55,9 +181,8 @@
 
     </div>
 
-
     <script>
-        let i = 0;
+        var i = document.getElementById('nblign').value;
         document.getElementById('addBtn').addEventListener('click', function() {
             i++;
 
@@ -126,6 +251,7 @@
 
 
         document.getElementById('removeBtn').addEventListener('click', function() {
+            console.log(i);
             if (i > 0) {
                 document.getElementById('lifgnies').lastElementChild.remove();
                 i--;
@@ -134,6 +260,7 @@
         });
 
         function changeType(x) {
+            console.log('ahla');
             idchek = 'prod' + x;
             produit = document.getElementById(idchek);
             idprodcont = 'produit' + x;
@@ -240,10 +367,10 @@
                 }
             }
 
-            if (find == 0 ) {
+            if (find == 0) {
                 const myButton = document.querySelector('#myButton');
                 myButton.disabled = true;
-                 $("#formdevis").submit();
+                $("#formdevis").submit();
                 console.log('tsagal');
             } else {
                 msgerr.style.display = "block";
