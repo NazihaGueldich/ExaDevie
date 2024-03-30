@@ -7,14 +7,14 @@
             <div class="card-body">
                 <div class="card-title">Information du devis</div>
                 <hr>
-                <p class="text-lg-right"><strong>Date : </strong>{{ $devi->created_at }}</p>
+                <p class="text-lg-right"><strong>Date : </strong>{{ $devi->created_at->date }}</p>
                 <div class="d-flex justify-content-between">
                     <h4>M(e). {{ $devi->clients->nom }} {{ $devi->clients->prenom }} </h4>
                     <div>
                         <button type="button" class="btn btn-sm btn-info"><i class="zmdi zmdi-file-text"></i>
                             Factoriser</button>
-                        <button type="button" class="btn btn-sm btn-warning"><i class="zmdi zmdi-image-alt"></i>
-                            Pdf</button>
+                        <a href="{{ route('devis.pdf', ['id' => $devi->id]) }}" type="button" class="btn btn-sm btn-warning" target='_blanc'><i class="zmdi zmdi-image-alt"></i>
+                            Pdf</a>
                         @if ($devi->etat == 0)
                             <a href="{{ route('devis.refuser', ['id' => $devi->id]) }}" type="button"
                                 class="btn btn-sm btn-danger"><i class="zmdi zmdi-delete"></i>

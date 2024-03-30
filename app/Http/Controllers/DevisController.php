@@ -6,7 +6,9 @@ use App\Models\Devis;
 use App\Models\Clients;
 use App\Models\Produits;
 use App\Models\Lignesdevis;
+use App\Models\Parameters;
 use Illuminate\Http\Request;
+use PDF;
 
 class DevisController extends Controller
 {
@@ -93,6 +95,16 @@ class DevisController extends Controller
         $devi=Devis::find($id);
         $ligniedevis=Lignesdevis::where('id_devi',$id)->get();
         return view('pages.devis.details',compact('devi','ligniedevis'));
+    }
+
+    
+    public function devipdf($id){
+        $devi=Devis::find($id);
+        $ligniedevis=Lignesdevis::where('id_devi',$id)->get();
+        $parameter=Parameters::first();
+        $html = view('pages.devis.pdf',compact('devi','ligniedevis','parameter'))->render();
+        $pdf = PDF::loadHTML($html);
+        return $pdf->stream();
     }
 
     public function edit($id)
@@ -210,4 +222,5 @@ class DevisController extends Controller
         $devi->totTVA = $devi->totTVA+$prix;
         $devi->update();
     }
+
 }

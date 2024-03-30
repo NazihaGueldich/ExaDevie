@@ -69,4 +69,11 @@
         <div class="overlay toggle-menu"></div>
 
     </div>
+    <script>
+        $('.table').DataTable({
+            order: [
+                [3, 'asc']
+            ]
+        });
+    </script>
 @endsection
