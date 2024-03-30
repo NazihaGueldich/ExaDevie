@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\DevisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,9 @@ Route::middleware('auth')->group(function () {
     //client
     Route::resource("client", ClientsController::class);
     Route::get('Clients/archive/{id}/{val}', [ClientsController::class, 'archive'])->name('Client.archive');
+
+    //devis
+    Route::resource("devis", DevisController::class);
 
 });
 require __DIR__.'/auth.php';
