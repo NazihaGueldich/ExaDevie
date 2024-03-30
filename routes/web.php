@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     //devis
     Route::resource("devis", DevisController::class);
+    Route::get('devis/refuser/{id}', [DevisController::class, 'refuser'])->name('devis.refuser');
 
 });
 require __DIR__.'/auth.php';

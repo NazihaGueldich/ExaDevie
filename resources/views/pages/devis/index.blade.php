@@ -10,7 +10,8 @@
                         <h5 class="card-title fw-semibold">Devis</h5>
                     </div>
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('devis.create') }}" type="button" class="btn btn-light btn-round px-5"><i class="zmdi zmdi-plus"></i>
+                        <a href="{{ route('devis.create') }}" type="button" class="btn btn-light btn-round px-5"><i
+                                class="zmdi zmdi-plus"></i>
                             Ajouter</a>
 
                     </div>
@@ -33,21 +34,30 @@
                                 <td>{{ $devi->sujet }}</td>
                                 <td>{{ $devi->clients->nom }} {{ $devi->clients->prenom }}</td>
                                 <td>
-                                    @if ($devi->etat == 0)
-                                        En cours
-                                    @elseif($devi->etat == 1)
-                                        Accepter
-                                    @elseif($devi->etat == 2)
-                                        Refuser
-                                    @endif
+                                    @switch($devi->etat)
+                                        @case(0)
+                                            <span class="badge bg-info me-1">En Cours</span>
+                                        @break
+
+                                        @case(1)
+                                            <span class="badge bg-success me-1">Prêt</span>
+                                        @break
+
+                                        @case(2)
+                                            <span class="badge bg-danger me-1">Refusé</span>
+                                        @break
+
+                                        @default
+                                            <span class="badge bg-warning me-1">Etat inconnu</span>
+                                    @endswitch
                                 </td>
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
-                                    <a href="{{ route('devis.edit', $devi->id) }}"  class="btn btn-sm btn-warning m-1">
+                                    <a href="{{ route('devis.edit', $devi->id) }}" class="btn btn-sm btn-warning m-1">
                                         <i class="zmdi zmdi-edit"></i>
                                     </a>
-                                    <button class="btn btn-sm btn-info m-1">
+                                    <a href="{{ route('devis.show', $devi->id) }}" class="btn btn-sm btn-info m-1">
                                         Detaille
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

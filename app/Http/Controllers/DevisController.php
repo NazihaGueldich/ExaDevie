@@ -88,9 +88,11 @@ class DevisController extends Controller
     }
 
     
-    public function show(Devis $devis)
+    public function show($id)
     {
-
+        $devi=Devis::find($id);
+        $ligniedevis=Lignesdevis::where('id_devi',$id)->get();
+        return view('pages.devis.details',compact('devi','ligniedevis'));
     }
 
     public function edit($id)
@@ -171,6 +173,15 @@ class DevisController extends Controller
     {
         
     }
+
+    public function refuser($id)
+    {
+        $devi = Devis::find($id);      
+        $devi->etat = 2;
+        $devi->save(); 
+        return redirect()->route('devis.show', ['devi' => $id]);
+    }
+
 
 
     public function MTHT($id,$prix){

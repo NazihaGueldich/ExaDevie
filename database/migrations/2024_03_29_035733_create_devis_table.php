@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('MTHT')->nullable();
             $table->float('TotTva')->nullable();
             $table->integer('id_client')->nullable();
+            $table->integer('etat')->default(0);
             $table->timestamps();
         });
     }
