@@ -109,7 +109,12 @@ class DevisController extends Controller
     {   
         //3malt update lil devis
         $devi=Devis::find($request->devi_id);
-        $devi->update($request->all());
+        $devi->sujet=$request->sujet;
+        $devi->MTTTC=0;
+        $devi->MTHT=0;
+        $devi->TotTva=0;
+        $devi->id_client=$request->id_client;
+        $devi->update();
         //fsa5t les lignie li9domm
         Lignesdevis::where('id_devi', $request->devi_id)->delete();
         //sna3t des lignie jdod
