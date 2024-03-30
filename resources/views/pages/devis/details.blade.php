@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="card-title">Information du devis</div>
                 <hr>
-                <p class="text-lg-right"><strong>Date : </strong>{{ $devi->created_at->date }}</p>
+                <p class="text-lg-right"><strong>Date : </strong>{{ $devi->created_at }}</p>
                 <div class="d-flex justify-content-between">
                     <h4>M(e). {{ $devi->clients->nom }} {{ $devi->clients->prenom }} </h4>
                     <div>
