@@ -15,6 +15,7 @@
                     @csrf
                     @method('POST')
                     <input hidden value="{{$devi->id}}" name="devi_id">
+                    <input hidden value="{{$devi->id_client}}" name="id_client">
                     <h5>Sujet :</h5>
                     <textarea type="text" class="form-control" id="sujet" name="sujet">{{ $devi->sujet }}</textarea>
                     <hr width="300">

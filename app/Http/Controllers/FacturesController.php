@@ -31,6 +31,7 @@ class FacturesController extends Controller
         $facture = new Factures([
             'id_devi' => $request->input('devi_id'),
             'sujet' => $request->input('sujet'),
+            'id_client' => $request->input('id_client'),
             'num' => $num,
             ]);
         $facture->save();
