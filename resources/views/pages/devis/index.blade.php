@@ -67,9 +67,37 @@
         </div>
 
         <div class="overlay toggle-menu"></div>
+        @if (session('success'))
+            <input hidden id="successForm" value="{{ session('success') }}">
+            <input hidden id="idfacture" value="{{ session('idfacture') }}">
+        @else
+            <input hidden id="successForm" value="0">
+        @endif
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function() {
+            var success = parseInt(document.getElementById('successForm').value);
+            console.log('success:', success);
+            if (success === 1) {
+                console.log('d5all');
+                Swal.fire({
+                    title: 'Factorisation',
+                    text: "Votre facture est prête",
+                    icon: 'success',
+                    confirmButtonColor: 'forestgreen',
+                    confirmButtonText: 'Afficher',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var factureId = document.getElementById('idfacture').value;
+                        var url = '/factures_PDF/' + factureId;
+                        //y7ill il lien fi pg o5ra
+                        window.open(url, '_blank');
+                    }
+                });
+            }
+        });
         $('.table').DataTable({
             order: [
                 [3, 'asc']

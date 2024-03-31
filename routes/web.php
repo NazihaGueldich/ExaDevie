@@ -5,6 +5,7 @@ use App\Http\Controllers\ProduitsController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DevisController;
+use App\Http\Controllers\FacturesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::resource("devis", DevisController::class);
     Route::get('devis/refuser/{id}', [DevisController::class, 'refuser'])->name('devis.refuser');
     Route::get('devis_PDF/{id}', [DevisController::class, 'devipdf'])->name('devis.pdf');
+
+    //factures
+    Route::resource("factures", FacturesController::class);
+    Route::get('factures_PDF/{id}', [FacturesController::class, 'facturepdf']);
 
 });
 require __DIR__.'/auth.php';

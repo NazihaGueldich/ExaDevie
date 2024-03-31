@@ -11,8 +11,8 @@
                 <div class="d-flex justify-content-between">
                     <h4>M(e). {{ $devi->clients->nom }} {{ $devi->clients->prenom }} </h4>
                     <div>
-                        <button type="button" class="btn btn-sm btn-info"><i class="zmdi zmdi-file-text"></i>
-                            Factoriser</button>
+                        <a href="{{ route('factures.show', $devi->id) }}"  type="button" class="btn btn-sm btn-info"><i class="zmdi zmdi-file-text"></i>
+                            Factoriser</a>
                         <a href="{{ route('devis.pdf', ['id' => $devi->id]) }}" type="button" class="btn btn-sm btn-warning" target='_blanc'><i class="zmdi zmdi-image-alt"></i>
                             Pdf</a>
                         @if ($devi->etat == 0)
