@@ -15,7 +15,8 @@ class FacturesController extends Controller
 {
     public function index()
     {
-        
+        $factures=Factures::all();
+        return view('pages.factures.index',compact('factures'));
     }
 
     public function store(Request $request)
@@ -94,6 +95,7 @@ class FacturesController extends Controller
         ]);
     }
 
+    //factorisation
     public function show($id)
     {
         $num=Factures::max('num');
@@ -108,6 +110,14 @@ class FacturesController extends Controller
         $produits=Produits::where('etat',0)->get();
         $nblignie=$ligniedevis->count();
         return view('pages.factures.fatoriser',compact('devi','ligniedevis','produits','nblignie'));
+    }
+
+    //details
+    public function details($id)
+    {
+        $facture=Factures::find($id);
+        $ligniefactures=Ligniefactures::where('id_facture',$id)->get();
+        return view('pages.factures.detaille',compact('facture','ligniefactures'));
     }
 
     public function update(Request $request, Factures $factures)

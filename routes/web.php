@@ -53,7 +53,8 @@ Route::middleware('auth')->group(function () {
 
     //factures
     Route::resource("factures", FacturesController::class);
-    Route::get('factures_PDF/{id}', [FacturesController::class, 'facturepdf']);
+    Route::get('factures_PDF/{id}', [FacturesController::class, 'facturepdf'])->name('factures.pdf');
+    Route::get('factures/détails/{id}', [FacturesController::class, 'details'])->name('factures.details');
 
 });
 require __DIR__.'/auth.php';
