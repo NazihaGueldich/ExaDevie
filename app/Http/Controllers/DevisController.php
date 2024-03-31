@@ -7,6 +7,7 @@ use App\Models\Clients;
 use App\Models\Produits;
 use App\Models\Lignesdevis;
 use App\Models\Parameters;
+use App\Models\Factures;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -16,7 +17,8 @@ class DevisController extends Controller
     public function index()
     {
         $devis=Devis::all();
-        return view('pages.devis.index',compact('devis'));
+        $iddevis = Factures::pluck('id_devi')->toArray();
+        return view('pages.devis.index',compact('devis','iddevis'));
     }
 
     public function create(){

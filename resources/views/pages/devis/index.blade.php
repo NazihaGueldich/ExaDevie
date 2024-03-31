@@ -52,9 +52,11 @@
                                     @endswitch
                                 </td>
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
+                                    @if(!in_array($devi->id, $iddevis))
                                     <a href="{{ route('devis.edit', $devi->id) }}" class="btn btn-sm btn-warning m-1">
                                         <i class="zmdi zmdi-edit"></i>
                                     </a>
+                                    @endif
                                     <a href="{{ route('devis.show', $devi->id) }}" class="btn btn-sm btn-info m-1">
                                         Detaille
                                     </a>
