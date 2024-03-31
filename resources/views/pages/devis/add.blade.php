@@ -29,13 +29,12 @@
                     {{-- lignie devis --}}
                     <hr style="width: 250px">
 
-                    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9 mb-3">
                         <div class="mb-3 mb-sm-0">
                             <div class="card-title">Information de contenue</div>
                         </div>
                         <div>
                             <button type="button" id="addBtn" class="btn btn-success">+</button>
-                            <button type="button" id="removeBtn" class="btn btn-warning">-</button>
                             <input hidden id='nblign' name="nblign" value="0">
                         </div>
                     </div>
@@ -62,59 +61,67 @@
             i++;
 
             let contenu = `
-                <p class="alert alert-danger" style="display:none" id="msgerr${i}"></p>
+            <div class="card" id="card${i}">
+                <div class="card-body">
+                    <p class="alert alert-danger" style="display:none" id="msgerr${i}"></p>
 
-                <div class="form-group row mt-lg-3">
-                    <label for="name" class="col-sm-4 col-form-label">Type</label>
-                    <div class="col-sm-8 row">
-                        <label class="container col-sm-6">
-                            <input type="radio" id="prod${i}" name="type${i}" value="0" onclick="changeType(${i})">
-                            Produits
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="container col-sm-6">
-                            <input type="radio" id="serv${i}" name="type${i}" value="1" onclick="changeType(${i})">
-                            Services
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                </div>
-                <div  id="produit${i}" style="display: none">
-                    <div  class="form-group row">
-                        <label for="id_produit" class="col-sm-1 offset-1 col-form-label">Produits</label>
-                        <div class="col-sm-3 p-0">
-                            <select class="form-control " id="id_produit${i}" name="id_produit${i}">
-                                <option value="" disabled selected>Choisir un produit</option>
-                                @foreach ($produits as $produit)
-                                    <option value="{{ $produit->id }}">{{ $produit->nom }} </option>
-                                @endforeach
-                            </select>
+                    <div class="form-group row mt-lg-3">
+                        <label for="name" class="col-sm-4 col-form-label">Type</label>
+                        <div class="col-sm-8 row">
+                            <label class="container col-sm-6">
+                                <input type="radio" id="prod${i}" name="type${i}" value="0" onclick="changeType(${i})">
+                                Produits
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container col-sm-6">
+                                <input type="radio" id="serv${i}" name="type${i}" value="1" onclick="changeType(${i})">
+                                Services
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
-                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">Quantité</label>
-                        <input type="number" class="form-control col-sm-3" id="quantiter${i}" name="quantiter${i}"
-                            placeholder="Saisire la quantité">
+                    </div>
+                    <div  id="produit${i}" style="display: none">
+                        <div  class="form-group row">
+                            <label for="id_produit" class="col-sm-1 offset-1 col-form-label">Produits</label>
+                            <div class="col-sm-3 p-0">
+                                <select class="form-control " id="id_produit${i}" name="id_produit${i}">
+                                    <option value="" disabled selected>Choisir un produit</option>
+                                    @foreach ($produits as $produit)
+                                        <option value="{{ $produit->id }}">{{ $produit->nom }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <label for="input-2" class="col-sm-1 offset-1 col-form-label">Quantité</label>
+                            <input type="number" class="form-control col-sm-3" id="quantiter${i}" name="quantiter${i}"
+                                placeholder="Saisire la quantité">
+                        </div>
+                    </div>
+                    <div class="form-group row" id="service${i}" style="display: none">
+                        <label for="input-2">Deseigniation</label>
+                        <textarea type="text" class="form-control" id="designiation${i}" name="designiation${i}" placeholder="Saisire le service"></textarea>
+                        <div class="form-group row mt-3">
+                            <label for="input-2" class="col-sm-1 offset-1 col-form-label">Prix U</label>
+                            <input type="number" class="form-control col-sm-3" id="prix${i}" name="prix${i}"
+                                placeholder="Saisire le prix unitair">
+                            <label for="input-2" class="col-sm-1 offset-1 col-form-label">TVA</label>
+                            <input type="number" class="form-control col-sm-3" id="tva${i}" name="tva${i}"
+                                placeholder="Saisire le TVA">
+                        </div>
+                        <div class="form-group row">
+                            <label for="input-2" class="col-sm-1 offset-1 col-form-label">THT</label>
+                            <input type="number" class="form-control col-sm-3" id="tht${i}" name="tht${i}"
+                                placeholder="Saisire le THT">
+                            <label for="input-2" class="col-sm-1 offset-1 col-form-label">PTTTC</label>
+                            <input type="number" class="form-control col-sm-3" id="ptttc${i}" name="ptttc${i}"
+                                placeholder="Saisire le PTTTC">
+                        </div>
+                    </div>
+                    <div class="text-lg-right">
+                        <button type="button" class="btn btn-warning"
+                            onclick="deleteCard(${i})">Supprimer lignie</button>
                     </div>
                 </div>
-                <div class="form-group row" id="service${i}" style="display: none">
-                    <label for="input-2">Deseigniation</label>
-                    <textarea type="text" class="form-control" id="designiation${i}" name="designiation${i}" placeholder="Saisire le service"></textarea>
-                    <div class="form-group row mt-3">
-                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">Prix U</label>
-                        <input type="number" class="form-control col-sm-3" id="prix${i}" name="prix${i}"
-                            placeholder="Saisire le prix unitair">
-                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">TVA</label>
-                        <input type="number" class="form-control col-sm-3" id="tva${i}" name="tva${i}"
-                            placeholder="Saisire le TVA">
-                    </div>
-                    <div class="form-group row">
-                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">THT</label>
-                        <input type="number" class="form-control col-sm-3" id="tht${i}" name="tht${i}"
-                            placeholder="Saisire le THT">
-                        <label for="input-2" class="col-sm-1 offset-1 col-form-label">PTTTC</label>
-                        <input type="number" class="form-control col-sm-3" id="ptttc${i}" name="ptttc${i}"
-                            placeholder="Saisire le PTTTC">
-                    </div>
-                </div>`;
+            </div>`;
 
             let temp = document.createElement('div');
             temp.innerHTML = contenu;
@@ -124,14 +131,28 @@
         });
 
 
-
-        document.getElementById('removeBtn').addEventListener('click', function() {
-            if (i > 0) {
-                document.getElementById('lifgnies').lastElementChild.remove();
-                i--;
-            }
-            document.getElementById('nblign').value = i;
-        });
+        function deleteCard(x) {
+            Swal.fire({
+                title: 'Êtes-vous sûr?',
+                text: "La ligne sera définitivement supprimée!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, supprimer!',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let idcard = 'card' + x;
+                    let card = document.getElementById(idcard);
+                    if (card) {
+                        card.remove();
+                    }
+                    i--;
+                    document.getElementById('nblign').value = i;
+                }
+            });
+        }
 
         function changeType(x) {
             idchek = 'prod' + x;
