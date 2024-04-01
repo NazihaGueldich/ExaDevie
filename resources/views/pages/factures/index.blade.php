@@ -85,10 +85,6 @@
                 });
             }
         });
-        $('.table').DataTable({
-            order: [
-                [3, 'asc']
-            ]
-        });
+
     </script>
 @endsection

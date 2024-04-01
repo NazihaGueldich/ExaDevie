@@ -17,13 +17,13 @@
                     </div>
                 </div>
                 <hr>
-                <table class="table table-striped">
+                <table class="table table-striped" id="devisTable">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
                             <th scope="col">Sujet</th>
                             <th scope="col">Client</th>
-                            <th scope="col">Etat</th>
+                            <th scope="col" class="text-center">Etat</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -33,14 +33,14 @@
                                 <td>{{ $devi->created_at }}</td>
                                 <td>{{ $devi->sujet }}</td>
                                 <td>{{ $devi->clients->nom }} {{ $devi->clients->prenom }}</td>
-                                <td>
+                                <td class="text-center">
                                     @switch($devi->etat)
                                         @case(0)
-                                            <span class="badge bg-info me-1">En Cours</span>
+                                            <span class="badge bg-info me-1">A l'étude par le client</span>
                                         @break
 
                                         @case(1)
-                                            <span class="badge bg-success me-1">Accepter</span>
+                                            <span class="badge bg-success me-1">Confirmer</span>
                                         @break
 
                                         @case(2)
@@ -52,10 +52,10 @@
                                     @endswitch
                                 </td>
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
-                                    @if(!in_array($devi->id, $iddevis))
-                                    <a href="{{ route('devis.edit', $devi->id) }}" class="btn btn-sm btn-warning m-1">
-                                        <i class="zmdi zmdi-edit"></i>
-                                    </a>
+                                    @if (!in_array($devi->id, $iddevis))
+                                        <a href="{{ route('devis.edit', $devi->id) }}" class="btn btn-sm btn-warning m-1">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </a>
                                     @endif
                                     <a href="{{ route('devis.show', $devi->id) }}" class="btn btn-sm btn-info m-1">
                                         Detaille
@@ -126,6 +126,13 @@
         });
         $('.table').DataTable({
             order: [
+                [3, 'asc']
+            ]
+        });
+    </script>
+    <script>
+        let table = new DataTable('.table', {
+            "order": [
                 [3, 'asc']
             ]
         });
