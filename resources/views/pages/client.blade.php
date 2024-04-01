@@ -58,6 +58,9 @@
                                             href="{{ route('Client.archive', ['id' => $client->id, 'val' => 0]) }}"><i
                                                 class="zmdi zmdi-archive"></i></a>
                                     @endif
+                                    <a href="{{ route('client.show', $client->id) }}" class="btn btn-sm btn-info m-1">
+                                        Detaille
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

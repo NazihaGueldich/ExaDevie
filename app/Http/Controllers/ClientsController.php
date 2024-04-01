@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clients;
+use App\Models\Factures;
+use App\Models\Devis;
+
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
@@ -30,9 +33,12 @@ class ClientsController extends Controller
     }
 
     
-    public function show(Clients $clients)
+    public function show($id)
     {
-        //
+        $client=Clients::find($id);
+        $nbfact=Factures::where('id_client',$id)->whereNull('id_devi')->count();
+        $nbdev=Devis::where('id_client',$id)->count();
+        return view("pages.detdevfact",compact('nbfact','nbdev','client'));
     }
 
     

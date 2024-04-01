@@ -20,6 +20,12 @@ class FacturesController extends Controller
         return view('pages.factures.index',compact('factures'));
     }
 
+    public function FactClt($id)
+    {
+        $factures=Factures::where('id_client',$id)->get();
+        return view('pages.factures.index',compact('factures'));
+    }
+
     public function store(Request $request)
     {
         $num=Factures::max('num');

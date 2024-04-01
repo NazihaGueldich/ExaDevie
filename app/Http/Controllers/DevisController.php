@@ -36,6 +36,13 @@ class DevisController extends Controller
         return view('pages.devis.index',compact('devis','iddevis'));
     }
 
+    public function DevClt($id)
+    {
+        $devis=Devis::where('id_client',$id)->get();
+        $iddevis = Factures::pluck('id_devi')->toArray();
+        return view('pages.devis.index',compact('devis','iddevis'));
+    }
+
     public function create(){
         $clients=Clients::where('etat',0)->get();
         $produits=Produits::where('etat',0)->get();

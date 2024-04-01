@@ -52,12 +52,14 @@ Route::middleware('auth')->group(function () {
     Route::get('devis_PDF/{id}', [DevisController::class, 'devipdf'])->name('devis.pdf');
     Route::get('devis/en_cours', [DevisController::class, 'indexEC'])->name('devis.en_cours');
     Route::get('devis/accepter', [DevisController::class, 'indexA'])->name('devis.accepter');
+    Route::get('devis/clients/{id}', [DevisController::class, 'DevClt'])->name('devis.clients');
 
     //factures
     Route::resource("factures", FacturesController::class);
     Route::get('factures_PDF/{id}', [FacturesController::class, 'facturepdf'])->name('factures.pdf');
     Route::get('factures/détails/{id}', [FacturesController::class, 'details'])->name('factures.details');
     Route::post('factures/ajouter', [FacturesController::class, 'ajout'])->name('factures.add');
+    Route::get('factures/clients/{id}', [FacturesController::class, 'FactClt'])->name('factures.clients');
 
     //dashboard
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
