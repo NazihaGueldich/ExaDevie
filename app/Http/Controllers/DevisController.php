@@ -89,7 +89,11 @@ class DevisController extends Controller
                 $this->totTVA($iddevi,$tva);
             }
         }
-        return redirect()->route('devis.index');
+        $success = 1;
+        return redirect()->route('devis.index')->with([
+            'succey' => $success,
+            'iddevi' => $iddevi,
+        ]);
     }
 
     

@@ -411,6 +411,11 @@
 <address contenteditable class="left" style="margin-left:60%;font-size:16px;font-family: Georgia, serif;">
     <p>Date: <span contenteditable>{{ $devi->created_at->format('Y-m-d') }}</span> </p>
 </address>
+<br>
+        <div  style="font-size:15px; margin-top: 15%;margin-bottom: 3%;">
+            <h4>Sujet:</h4><br>
+            <p> {{ $devi->sujet }}</p>
+        </div>
         <table class="inventory">
             <thead>
 

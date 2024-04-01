@@ -75,6 +75,12 @@
         @else
             <input hidden id="successForm" value="0">
         @endif
+        @if (session('succey'))
+            <input hidden id="succeyForm" value="{{ session('succey') }}">
+            <input hidden id="iddevi" value="{{ session('iddevi') }}">
+        @else
+            <input hidden id="succeyForm" value="0">
+        @endif
 
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -94,6 +100,24 @@
                     if (result.isConfirmed) {
                         var factureId = document.getElementById('idfacture').value;
                         var url = '/factures_PDF/' + factureId;
+                        //y7ill il lien fi pg o5ra
+                        window.open(url, '_blank');
+                    }
+                });
+            }
+            var succey = parseInt(document.getElementById('succeyForm').value);
+            if (succey === 1) {
+                console.log('d5all');
+                Swal.fire({
+                    title: 'Devis',
+                    text: "Votre devi est prête",
+                    icon: 'success',
+                    confirmButtonColor: 'forestgreen',
+                    confirmButtonText: 'Afficher',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var iddevi = document.getElementById('iddevi').value;
+                        var url = '/devis_PDF/' + iddevi;
                         //y7ill il lien fi pg o5ra
                         window.open(url, '_blank');
                     }
