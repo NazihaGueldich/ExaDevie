@@ -22,7 +22,7 @@ class FacturesController extends Controller
 
     public function FactClt($id)
     {
-        $factures=Factures::where('id_client',$id)->get();
+        $factures=Factures::where('id_client',$id)->whereNull('id_devi')->get();
         return view('pages.factures.index',compact('factures'));
     }
 
