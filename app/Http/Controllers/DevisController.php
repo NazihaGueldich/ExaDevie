@@ -21,6 +21,21 @@ class DevisController extends Controller
         return view('pages.devis.index',compact('devis','iddevis'));
     }
 
+
+    public function indexEC()
+    {
+        $devis=Devis::where('etat',0)->get();
+        $iddevis = Factures::pluck('id_devi')->toArray();
+        return view('pages.devis.index',compact('devis','iddevis'));
+    }
+
+    public function indexA()
+    {
+        $devis==Devis::where('etat',1)->get();
+        $iddevis = Factures::pluck('id_devi')->toArray();
+        return view('pages.devis.index',compact('devis','iddevis'));
+    }
+
     public function create(){
         $clients=Clients::where('etat',0)->get();
         $produits=Produits::where('etat',0)->get();

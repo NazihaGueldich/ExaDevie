@@ -10,10 +10,17 @@
                         <h5 class="card-title fw-semibold">Clients</h5>
                     </div>
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn btn-light btn-round px-5"
+                        <button type="button" class="btn btn-light px-5 mr-2"
                             onclick="openModalClient('','','','','','','','','Ajouter')"><i class="zmdi zmdi-plus"></i>
                             Ajouter</button>
 
+                        @if ($arch == 1)
+                            <a href="{{ route('client.index') }}" type="button" class="btn btn-light px-5">
+                                Clients Non Archiver</a>
+                        @else
+                            <a href="{{ route('Client.archivee') }}" type="button" class="btn btn-light px-5">
+                                Clients Non Archiver</a>
+                        @endif
                     </div>
                 </div>
                 <hr>
@@ -30,30 +37,30 @@
                     </thead>
                     <tbody>
                         @foreach ($clients as $client)
-                        <tr>
-                            <td>{{ $client->cin }}</td>
-                            <td>{{ $client->nom }} {{ $client->prenom }}</td>
-                            <td>{{ $client->email }}</td>
-                            <td>{{ $client->adresse }}
-                            </td>
-                            <td>{{ $client->tel }}</td>
-                            <td class=" align-items-center justify-content-center flex-column d-flex">
-                                <button class="btn btn-sm btn-warning m-1"
-                                    onclick="openModalClient('{{ $client->cin }}','{{ $client->nom }}','{{ $client->prenom }}','{{ $client->email }}','{{ $client->adresse }}','{{ $client->tel }}','{{ $client->id }}','Modifier')">
-                                    <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                @if ($client->etat == 0)
-                                    <a class="btn btn-sm btn-danger"
-                                        href="{{ route('Client.archive', ['id' => $client->id, 'val' => 1]) }}"><i
-                                            class="zmdi zmdi-archive"></i></a>
-                                @else
-                                    <a class="btn btn-sm btn-success"
-                                        href="{{ route('Client.archive', ['id' => $client->id, 'val' => 0]) }}"><i
-                                            class="zmdi zmdi-archive"></i></a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                            <tr>
+                                <td>{{ $client->cin }}</td>
+                                <td>{{ $client->nom }} {{ $client->prenom }}</td>
+                                <td>{{ $client->email }}</td>
+                                <td>{{ $client->adresse }}
+                                </td>
+                                <td>{{ $client->tel }}</td>
+                                <td class=" align-items-center justify-content-center flex-column d-flex">
+                                    <button class="btn btn-sm btn-warning m-1"
+                                        onclick="openModalClient('{{ $client->cin }}','{{ $client->nom }}','{{ $client->prenom }}','{{ $client->email }}','{{ $client->adresse }}','{{ $client->tel }}','{{ $client->id }}','Modifier')">
+                                        <i class="zmdi zmdi-edit"></i>
+                                    </button>
+                                    @if ($client->etat == 0)
+                                        <a class="btn btn-sm btn-danger"
+                                            href="{{ route('Client.archive', ['id' => $client->id, 'val' => 1]) }}"><i
+                                                class="zmdi zmdi-archive"></i></a>
+                                    @else
+                                        <a class="btn btn-sm btn-success"
+                                            href="{{ route('Client.archive', ['id' => $client->id, 'val' => 0]) }}"><i
+                                                class="zmdi zmdi-archive"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -77,7 +84,7 @@
                     <div class="modal-body">
                         <p class="alert alert-danger" style="display:none" id="msgerr"></p>
                         <input class="alert alert-danger" style="display:none" id="modbld" name="modbld" value="2">
-                       
+
                         <div class="form-group row mb-2">
                             <label for="name" class="col-sm-4 col-form-label">CIN</label>
                             <div class="col-sm-8 mb-2">
@@ -130,5 +137,4 @@
     <script>
         const RouteStore = "{{ route('client.store') }}";
     </script>
-   
 @endsection

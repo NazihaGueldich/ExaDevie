@@ -18,6 +18,7 @@
 <script>
     /* data  table */
     let table = new DataTable('.table');
+    $('#dash').DataTable().destroy();
 </script>
 
 

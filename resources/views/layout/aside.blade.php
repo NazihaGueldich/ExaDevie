@@ -1,7 +1,7 @@
    <!--Start sidebar-wrapper-->
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
        <div class="brand-logo">
-           <a href="index.html">
+           <a href="{{ route('dashboard') }}">
                <img src="https://exadev.tn/Exadev_Favicon.ico" class="logo-icon" alt="logo icon">
                <h5 class="logo-text">Devis</h5>
            </a>
@@ -9,7 +9,7 @@
        <ul class="sidebar-menu do-nicescrol">
            <li class="sidebar-header">Menue</li>
            <li>
-               <a href="index.html">
+               <a href="{{ route('dashboard') }}">
                    <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
                </a>
            </li>

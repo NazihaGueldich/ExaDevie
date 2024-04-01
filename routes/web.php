@@ -6,6 +6,7 @@ use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DevisController;
 use App\Http\Controllers\FacturesController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,16 +44,22 @@ Route::middleware('auth')->group(function () {
     //client
     Route::resource("client", ClientsController::class);
     Route::get('Clients/archive/{id}/{val}', [ClientsController::class, 'archive'])->name('Client.archive');
+    Route::get('Clients/archivee', [ClientsController::class, 'indexArch'])->name('Client.archivee');
 
     //devis
     Route::resource("devis", DevisController::class);
     Route::get('devis/refuser/{id}', [DevisController::class, 'refuser'])->name('devis.refuser');
     Route::get('devis_PDF/{id}', [DevisController::class, 'devipdf'])->name('devis.pdf');
+    Route::get('devis/en_cours', [DevisController::class, 'indexEC'])->name('devis.en_cours');
+    Route::get('devis/accepter', [DevisController::class, 'indexA'])->name('devis.accepter');
 
     //factures
     Route::resource("factures", FacturesController::class);
     Route::get('factures_PDF/{id}', [FacturesController::class, 'facturepdf'])->name('factures.pdf');
     Route::get('factures/détails/{id}', [FacturesController::class, 'details'])->name('factures.details');
     Route::post('factures/ajouter', [FacturesController::class, 'ajout'])->name('factures.add');
+
+    //dashboard
+    Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
 });
 require __DIR__.'/auth.php';

@@ -10,8 +10,16 @@ class ClientsController extends Controller
     
     public function index()
     {
-        $clients = Clients::all();
-        return view("pages.client",compact('clients'));
+        $clients = Clients::where('etat',0)->get();
+        $arch=0;
+        return view("pages.client",compact('clients','arch'));
+    }
+
+    public function indexArch()
+    {
+        $clients = Clients::where('etat',1)->get();
+        $arch=1;
+        return view("pages.client",compact('clients','arch'));
     }
 
     

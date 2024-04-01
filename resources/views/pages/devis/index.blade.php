@@ -40,7 +40,7 @@
                                         @break
 
                                         @case(1)
-                                            <span class="badge bg-success me-1">Prêt</span>
+                                            <span class="badge bg-success me-1">Accepter</span>
                                         @break
 
                                         @case(2)
