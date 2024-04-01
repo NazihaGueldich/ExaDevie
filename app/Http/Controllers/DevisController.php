@@ -117,7 +117,13 @@ class DevisController extends Controller
         $devi=Devis::find($id);
         $ligniedevis=Lignesdevis::where('id_devi',$id)->get();
         $nblignie=$ligniedevis->count();
-        return view('pages.devis.edit',compact('devi','produits','ligniedevis','clients','nblignie'));
+        $indicLignie = []; 
+
+        for ($i = 1; $i <= $nblignie; $i++) {
+            $indicLignie[] = $i; 
+        }
+        $indicLignie=implode(',', $indicLignie);
+        return view('pages.devis.edit',compact('devi','produits','ligniedevis','clients','indicLignie'));
     }
     
     public function update(Request $request, Devis $devis)
@@ -133,7 +139,8 @@ class DevisController extends Controller
         //fsa5t les lignie li9domm
         Lignesdevis::where('id_devi', $request->devi_id)->delete();
         //sna3t des lignie jdod
-        for ($i=1; $i <=$request->nblign ; $i++) {
+        $indicLignieTab = explode(',', $request->indicLignie);
+        foreach ($indicLignieTab as $i) {
             $idptype = 'type' . $i;
             $type = $request->get($idptype);
             if($type==0){//produits
