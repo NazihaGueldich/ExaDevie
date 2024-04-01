@@ -5,7 +5,9 @@
 
         <div class="card">
             <div class="card-body">
-                <div class="card-title"><h4>Factorisation du devis</h4></div>
+                <div class="card-title">
+                    <h4>Factorisation du devis</h4>
+                </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <h5>M(e). {{ $devi->clients->nom }} {{ $devi->clients->prenom }} </h5>
@@ -14,8 +16,8 @@
                 <form action="{{ route('factures.store') }}" method="POST" id="formfact">
                     @csrf
                     @method('POST')
-                    <input hidden value="{{$devi->id}}" name="devi_id">
-                    <input hidden value="{{$devi->id_client}}" name="id_client">
+                    <input hidden value="{{ $devi->id }}" name="devi_id">
+                    <input hidden value="{{ $devi->id_client }}" name="id_client">
                     <h5>Sujet :</h5>
                     <textarea type="text" class="form-control" id="sujet" name="sujet">{{ $devi->sujet }}</textarea>
                     <hr width="300">
@@ -27,7 +29,7 @@
                         </div>
                         <div>
                             <button type="button" id="addBtn" class="btn btn-success">+</button>
-                            <input hidden id='nblign' name="nblign" value="{{ $nblignie }}">
+                            <input hidden id='indicLignie' name="indicLignie" value="{{ $indicLignie }}">
                         </div>
                     </div>
 
@@ -110,7 +112,8 @@
                                                 <input type="number" class="form-control col-sm-3"
                                                     id="tht{{ $i }}" name="tht{{ $i }}"
                                                     placeholder="Saisir le THT">
-                                                <label for="input-2" class="col-sm-1 offset-1 col-form-label">PTTTC</label>
+                                                <label for="input-2"
+                                                    class="col-sm-1 offset-1 col-form-label">PTTTC</label>
                                                 <input type="number" class="form-control col-sm-3"
                                                     id="ptttc{{ $i }}" name="ptttc{{ $i }}"
                                                     placeholder="Saisir le PTTTC">
@@ -145,13 +148,15 @@
                                                     <input type="number" class="form-control col-sm-3"
                                                         id="prix{{ $i }}" name="prix{{ $i }}"
                                                         value="{{ $ligniedevi->prix }}">
-                                                    <label for="input-2" class="col-sm-1 offset-1 col-form-label">TVA</label>
+                                                    <label for="input-2"
+                                                        class="col-sm-1 offset-1 col-form-label">TVA</label>
                                                     <input type="number" class="form-control col-sm-3"
                                                         id="tva{{ $i }}" name="tva{{ $i }}"
                                                         value="{{ $ligniedevi->tva }}">
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="input-2" class="col-sm-1 offset-1 col-form-label">THT</label>
+                                                    <label for="input-2"
+                                                        class="col-sm-1 offset-1 col-form-label">THT</label>
                                                     <input type="number" class="form-control col-sm-3"
                                                         id="tht{{ $i }}" name="tht{{ $i }}"
                                                         value="{{ $ligniedevi->tht }}">
@@ -214,7 +219,9 @@
 
     </div>
     <script>
-        var i = document.getElementById('nblign').value;
+         var indice =document.getElementById('indicLignie').value;
+        var indice = indice.split(',');
+        var i = Math.max(...indice); console.log(indice);
         document.getElementById('addBtn').addEventListener('click', function() {
             i++;
 
@@ -285,7 +292,9 @@
             temp.innerHTML = contenu;
 
             document.getElementById('lifgnies').appendChild(temp);
-            document.getElementById('nblign').value = i;
+            indice.push(i);
+            document.getElementById('indicLignie').value = indice;
+            console.log(indice);
         });
 
 
@@ -307,8 +316,10 @@
                     if (card) {
                         card.remove();
                     }
-                    i--;
-                    document.getElementById('nblign').value = i;
+                    let index = indice.indexOf(x);
+                    indice.splice(index, 1);
+                    document.getElementById('indicLignie').value = indice;
+                    console.log(indice);
                 }
             });
         }
@@ -333,63 +344,65 @@
         function verifier() {
             msg = '';
             find = 0;
+            find2 = -1;
             msgerr = document.getElementById("msgerr");
-            nblign = document.getElementById('nblign').value;
-            if (nblign == 0) {
+            indicLignie = document.getElementById('indicLignie').value;
+            if (indicLignie.length === 0) {
                 msg = msg + "- Vous devez choisir des dans la bonde commende !</br>";
                 find = 1;
             } else {
-                for (let d = 1; d <= nblign; d++) {
+                for (let d = 0; d < indice.length; d++) {
                     msg2 = '';
                     find2 = 0;
-                    idchekprod = 'prod' + d;
+                    let value = indice[d]; console.log('indice[d]:',indice[d]);
+                    idchekprod = 'prod' + value;
                     produit = document.getElementById(idchekprod);
-                    idchekserv = 'serv' + d;
+                    idchekserv = 'serv' + value;
                     service = document.getElementById(idchekserv);
                     if (!produit.checked && !service.checked) {
                         msg2 = msg2 + "- Vous devez choisir un type !</br>";
                         find2 = 1;
                     } else {
                         if (produit.checked) {
-                            idproduit = 'id_produit' + d;
+                            idproduit = 'id_produit' + value;
                             prod = document.getElementById(idproduit).value;
                             if (prod === '') {
                                 msg2 = msg2 + "- Vous devez choisir un produits !</br>";
                                 find = 1;
                             }
-                            idquant = 'quantiter' + d;
+                            idquant = 'quantiter' + value;
                             quant = document.getElementById(idquant).value;
                             if (quant.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une quantité !</br>";
                                 find2 = 1;
                             }
                         } else {
-                            iddes = 'designiation' + d;
+                            iddes = 'designiation' + value;
                             designiation = document.getElementById(iddes).value;
                             if (designiation.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une designiation !</br>";
                                 find2 = 1;
                             }
 
-                            idprix = 'prix' + d;
+                            idprix = 'prix' + value;
                             prix = document.getElementById(idprix).value;
                             if (prix.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir un prix !</br>";
                                 find2 = 1;
                             }
-                            idtva = 'tva' + d;
+                            idtva = 'tva' + value;
                             tva = document.getElementById(idtva).value;
                             if (tva.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une TVA !</br>";
                                 find2 = 1;
                             }
-                            idtht = 'tht' + d;
+                            idtht = 'tht' + value;
                             tht = document.getElementById(idtht).value;
                             if (tht.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une THT !</br>";
                                 find2 = 1;
                             }
-                            idptttc = 'ptttc' + d;
+                            idptttc = 'ptttc' + value;
                             ptttc = document.getElementById(idptttc).value;
                             if (ptttc.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une PTTTC !</br>";
@@ -398,7 +411,7 @@
                         }
                     }
 
-                    idmsgerr = 'msgerr' + d;
+                    idmsgerr = 'msgerr' +value;
                     errmsg = document.getElementById(idmsgerr);
                     if (find2 != 0) {
                         errmsg.innerHTML = msg2;
@@ -413,8 +426,16 @@
             if (find == 0) {
                 const myButton = document.querySelector('#myButton');
                 myButton.disabled = true;
-                 $("#formfact").submit();
+                $("#formfact").submit();
                 console.log('tsagal');
+            }else{
+                Swal.fire({
+                    title: 'Errore',
+                    html: '- Vous avez des erreurs dans les lignes de bonde commendes !',
+                    icon: 'error',
+                    confirmButtonColor: '#F27474',
+                    confirmButtonText: 'OK, mercie',
+                });
             }
         }
     </script>

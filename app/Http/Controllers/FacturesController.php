@@ -38,7 +38,8 @@ class FacturesController extends Controller
         $facture->save();
         $facture=Factures::find(Factures::max('id'));
         $idfacture=$facture->id;
-        for ($i=1; $i <=$request->nblign ; $i++) {
+        $indicLignieTab = explode(',', $request->indicLignie);
+        foreach ($indicLignieTab as $i) {            
             $idptype = 'type' . $i;
             $type = $request->get($idptype);
             if($type==0){//produits
@@ -111,7 +112,13 @@ class FacturesController extends Controller
         $ligniedevis=Lignesdevis::where('id_devi',$id)->get();
         $produits=Produits::where('etat',0)->get();
         $nblignie=$ligniedevis->count();
-        return view('pages.factures.fatoriser',compact('devi','ligniedevis','produits','nblignie'));
+        $indicLignie = []; 
+
+        for ($i = 1; $i <= $nblignie; $i++) {
+            $indicLignie[] = $i; 
+        }
+        $indicLignie=implode(',', $indicLignie);
+        return view('pages.factures.fatoriser',compact('devi','ligniedevis','produits','indicLignie'));
     }
 
     //details
