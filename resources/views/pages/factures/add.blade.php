@@ -178,6 +178,7 @@
         function verifier() {
             msg = '';
             find = 0;
+            find2 = -1;
             msgerr = document.getElementById("msgerr");
             var client = $("#id_client").val();
             var sujet = $("#sujet").val().trim();
@@ -276,6 +277,16 @@
             } else {
                 msgerr.style.display = "block";
                 msgerr.innerHTML = msg;
+                if(find2==1){
+                    msg+='<br>- Vous avez des erreurs dans les lignes de bonde commendes !'
+                }
+                Swal.fire({
+                    title: 'Errore',
+                    html: msg,
+                    icon: 'error',
+                    confirmButtonColor: '#F27474',
+                    confirmButtonText: 'OK, mercie',
+                });
             }
         }
     </script>
