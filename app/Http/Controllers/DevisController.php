@@ -36,7 +36,8 @@ class DevisController extends Controller
         $devi->save();
         $devi=Devis::find(Devis::max('id'));
         $iddevi=$devi->id;
-        for ($i=1; $i <=$request->nblign ; $i++) {
+        $indicLignieTab = explode(',', $request->indicLignie);
+        foreach ($indicLignieTab as $i) {
             $idptype = 'type' . $i;
             $type = $request->get($idptype);
             if($type==0){//produits

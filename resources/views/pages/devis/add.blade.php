@@ -35,7 +35,7 @@
                         </div>
                         <div>
                             <button type="button" id="addBtn" class="btn btn-success">+</button>
-                            <input hidden id='nblign' name="nblign" value="0">
+                            <input hidden id='indicLignie' name="indicLignie" value="">
                         </div>
                     </div>
 
@@ -57,6 +57,7 @@
 
     <script>
         let i = 0;
+        let indice =[];
         document.getElementById('addBtn').addEventListener('click', function() {
             i++;
 
@@ -127,7 +128,9 @@
             temp.innerHTML = contenu;
 
             document.getElementById('lifgnies').appendChild(temp);
-            document.getElementById('nblign').value = i;
+            indice.push(i);
+
+            document.getElementById('indicLignie').value = indice;
         });
 
 
@@ -148,8 +151,9 @@
                     if (card) {
                         card.remove();
                     }
-                    i--;
-                    document.getElementById('nblign').value = i;
+                    let index = indice.indexOf(x);
+                    indice.splice(index, 1);
+                    document.getElementById('indicLignie').value = indice;
                 }
             });
         }
@@ -173,6 +177,7 @@
         function verifier() {
             msg = '';
             find = 0;
+            find2 = -1;
             msgerr = document.getElementById("msgerr");
             var client = $("#id_client").val();
             var sujet = $("#sujet").val().trim();
@@ -185,62 +190,63 @@
                 msg = msg + "- Vous devez choisir un sujet !</br>";
                 find = 1;
             }
-            nblign = document.getElementById('nblign').value;
-            if (nblign == 0) {
+            indicLignie = document.getElementById('indicLignie').value;
+            if (indicLignie.length === 0) {
                 msg = msg + "- Vous devez choisir des lignies de devis !</br>";
                 find = 1;
             } else {
-                for (let d = 1; d <= nblign; d++) {
+                for (let d = 0; d < indice.length; d++) {
                     msg2 = '';
                     find2 = 0;
-                    idchekprod = 'prod' + d;
+                    let value = indice[d];
+                    idchekprod = 'prod' + value;
                     produit = document.getElementById(idchekprod);
-                    idchekserv = 'serv' + d;
+                    idchekserv = 'serv' + value;
                     service = document.getElementById(idchekserv);
                     if (!produit.checked && !service.checked) {
                         msg2 = msg2 + "- Vous devez choisir un type !</br>";
                         find2 = 1;
                     } else {
                         if (produit.checked) {
-                            idproduit = 'id_produit' + d;
+                            idproduit = 'id_produit' + value;
                             prod = document.getElementById(idproduit).value;
                             if (prod === '') {
                                 msg2 = msg2 + "- Vous devez choisir un produits !</br>";
                                 find = 1;
                             }
-                            idquant = 'quantiter' + d;
+                            idquant = 'quantiter' + value;
                             quant = document.getElementById(idquant).value;
                             if (quant.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une quantité !</br>";
                                 find2 = 1;
                             }
                         } else {
-                            iddes = 'designiation' + d;
+                            iddes = 'designiation' + value;
                             designiation = document.getElementById(iddes).value;
                             if (designiation.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une designiation !</br>";
                                 find2 = 1;
                             }
 
-                            idprix = 'prix' + d;
+                            idprix = 'prix' + value;
                             prix = document.getElementById(idprix).value;
                             if (prix.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir un prix !</br>";
                                 find2 = 1;
                             }
-                            idtva = 'tva' + d;
+                            idtva = 'tva' + value;
                             tva = document.getElementById(idtva).value;
                             if (tva.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une TVA !</br>";
                                 find2 = 1;
                             }
-                            idtht = 'tht' + d;
+                            idtht = 'tht' + value;
                             tht = document.getElementById(idtht).value;
                             if (tht.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une THT !</br>";
                                 find2 = 1;
                             }
-                            idptttc = 'ptttc' + d;
+                            idptttc = 'ptttc' + value;
                             ptttc = document.getElementById(idptttc).value;
                             if (ptttc.length == 0) {
                                 msg2 = msg2 + "- Vous devez choisir une PTTTC !</br>";
@@ -249,7 +255,7 @@
                         }
                     }
 
-                    idmsgerr = 'msgerr' + d;
+                    idmsgerr = 'msgerr' + value;
                     errmsg = document.getElementById(idmsgerr);
                     if (find2 != 0) {
                         errmsg.innerHTML = msg2;
@@ -269,6 +275,16 @@
             } else {
                 msgerr.style.display = "block";
                 msgerr.innerHTML = msg;
+                if(find2==1){
+                    msg+='<br>- Vous avez des erreurs dans les lignes de bonde commendes !'
+                }
+                Swal.fire({
+                    title: 'Errore',
+                    html: msg,
+                    icon: 'error',
+                    confirmButtonColor: '#F27474',
+                    confirmButtonText: 'OK, mercie',
+                });
             }
         }
     </script>

@@ -273,7 +273,6 @@
                 myButton.disabled = true;
                  $("#formfact").submit();
                 console.log('tsagal');
-                console.log(document.getElementById('indicLignie').value);
             } else {
                 msgerr.style.display = "block";
                 msgerr.innerHTML = msg;
