@@ -401,12 +401,12 @@
     <article>
         <address contenteditable style="font-weight: 300;font-size:15px">
             <p>Client:</p>
-            <p>M(e).{{ $facture->devis->clients->nom }} {{ $facture->devis->clients->prenom }}</p>
+            <p>M(e).{{ $facture->clients->nom }} {{ $facture->clients->prenom }}</p>
             <p>
-                {{ $facture->devis->clients->adresse }}
+                {{ $facture->clients->adresse }}
             </p>
-            <p>{{ $facture->devis->clients->tel }}</p>
-            <p>{{ $facture->devis->clients->email }}</p>
+            <p>{{ $facture->clients->tel }}</p>
+            <p>{{ $facture->clients->email }}</p>
         </address>
         
         <address contenteditable class="left" style="margin-left:60%;font-size:16px;font-family: Georgia, serif;">
@@ -452,17 +452,17 @@
                                     {{ $ligniefacture->designiation }}
                                 @endif
                             </span></td>
-                        <td><span contenteditable>{{ $ligniefacture->prix }} DT</span><span contenteditable>DT</span></td>
-                        <td><span contenteditable>{{ $ligniefacture->prixT }} DT</span><span contenteditable>DT</span>
+                        <td><span contenteditable>{{ $ligniefacture->prix }} DT</span></td>
+                        <td><span contenteditable>{{ $ligniefacture->prixT }} DT</span>
                         </td>
                         <td>
-                            <span contenteditable>{{ $ligniefacture->tva }}%</span><span contenteditable>%</span>
+                            <span contenteditable>{{ $ligniefacture->tva }}%</span>
                         </td>
                         <td>
-                            <span contenteditable>{{ $ligniefacture->tht }} DT</span><span contenteditable>DT</span>
+                            <span contenteditable>{{ $ligniefacture->tht }} DT</span>
                         </td>
                         <td>
-                            <span contenteditable>{{ $ligniefacture->ptttc }} DT</span><span contenteditable>DT</span>
+                            <span contenteditable>{{ $ligniefacture->ptttc }} DT</span>
                         </td>
 
                     </tr>

@@ -9,12 +9,12 @@
                     <div class="mb-3 mb-sm-0">
                         <h5 class="card-title fw-semibold">Bondes Commendes</h5>
                     </div>
-                    {{-- <div class="d-flex align-items-center">
-                        <a href="{{ route('devis.create') }}" type="button" class="btn btn-light btn-round px-5"><i
+                    <div class="d-flex align-items-center">
+                        <a href="{{ route('factures.create') }}" type="button" class="btn btn-light btn-round px-5"><i
                                 class="zmdi zmdi-plus"></i>
                             Ajouter</a>
 
-                    </div> --}}
+                    </div> 
                 </div>
                 <hr>
                 <table class="table table-striped">
@@ -56,6 +56,39 @@
         </div>
 
         <div class="overlay toggle-menu"></div>
-
+        @if (session('success'))
+            <input hidden id="successForm" value="{{ session('success') }}">
+            <input hidden id="idfacture" value="{{ session('idfacture') }}">
+        @else
+            <input hidden id="successForm" value="0">
+        @endif
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var success = parseInt(document.getElementById('successForm').value);
+            console.log('success:', success);
+            if (success === 1) {
+                Swal.fire({
+                    title: 'Facture',
+                    text: "Votre facture est prête",
+                    icon: 'success',
+                    confirmButtonColor: 'forestgreen',
+                    confirmButtonText: 'Afficher',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var factureId = document.getElementById('idfacture').value;
+                        var url = '/factures_PDF/' + factureId;
+                        //y7ill il lien fi pg o5ra
+                        window.open(url, '_blank');
+                    }
+                });
+            }
+        });
+        $('.table').DataTable({
+            order: [
+                [3, 'asc']
+            ]
+        });
+    </script>
 @endsection
