@@ -276,7 +276,7 @@
                 msgerr.style.display = "block";
                 msgerr.innerHTML = msg;
                 if(find2==1){
-                    msg+='<br>- Vous avez des erreurs dans les lignes de bonde commendes !'
+                    msg+='<br>- Vous avez des erreurs dans les lignes de devis !'
                 }
                 Swal.fire({
                     title: 'Errore',
