@@ -41,6 +41,9 @@ class FacturesController extends Controller
             'id_client' => $request->input('id_client'),
             'num' => $num,
             ]);
+            $devi = Devis::find($request->input('devi_id'));      
+            $devi->etat = 1;
+            $devi->save(); 
         $facture->save();
         $facture=Factures::find(Factures::max('id'));
         $idfacture=$facture->id;
