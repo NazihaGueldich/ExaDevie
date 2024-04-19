@@ -7,6 +7,7 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DevisController;
 use App\Http\Controllers\FacturesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,5 +64,11 @@ Route::middleware('auth')->group(function () {
 
     //dashboard
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
+
+    //employes
+    Route::resource("employes", EmployesController::class);
+    Route::get('Employe/archive/{id}/{val}', [EmployesController::class, 'archive'])->name('Employe.archive');
+    Route::get('Employe/archivee', [EmployesController::class, 'indexArch'])->name('Employe.archivee');
+
 });
 require __DIR__.'/auth.php';

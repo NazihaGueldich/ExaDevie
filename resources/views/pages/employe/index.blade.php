@@ -7,19 +7,19 @@
             <div class="card-body">
                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                     <div class="mb-3 mb-sm-0">
-                        <h5 class="card-title fw-semibold">Clients</h5>
+                        <h5 class="card-title fw-semibold">Employés</h5>
                     </div>
                     <div class="d-flex align-items-center">
                         <button type="button" class="btn btn-light px-5 mr-2"
-                            onclick="openModalClient('','','','','','','','','Ajouter')"><i class="zmdi zmdi-plus"></i>
+                            onclick="openModalEmploye('','','','','','','','','','Ajouter')"><i class="zmdi zmdi-plus"></i>
                             Ajouter</button>
 
                         @if ($arch == 1)
-                            <a href="{{ route('client.index') }}" type="button" class="btn btn-light px-5">
-                                Clients Non Archiver</a>
+                            <a href="{{ route('employes.index') }}" type="button" class="btn btn-light px-5">
+                                Employés Non Archiver</a>
                         @else
-                            <a href="{{ route('Client.archivee') }}" type="button" class="btn btn-light px-5">
-                                Clients  Archiver</a>
+                            <a href="{{ route('Employe.archivee') }}" type="button" class="btn btn-light px-5">
+                                Employés   Archiver</a>
                         @endif
                     </div>
                 </div>
@@ -32,33 +32,37 @@
                             <th scope="col">E-mail</th>
                             <th scope="col">Adresse</th>
                             <th scope="col">N° téléphone</th>
+                            <th scope="col">Salaire</th>
+                            <th scope="col">Rib</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($clients as $client)
+                        @foreach ($employes as $employe)
                             <tr>
-                                <td>{{ $client->cin }}</td>
-                                <td>{{ $client->nom }} {{ $client->prenom }}</td>
-                                <td>{{ $client->email }}</td>
-                                <td>{{ $client->adresse }}
+                                <td>{{ $employe->cin }}</td>
+                                <td>{{ $employe->nom }} {{ $employe->pnom }}</td>
+                                <td>{{ $employe->email }}</td>
+                                <td>{{ $employe->adresse }}
                                 </td>
-                                <td>{{ $client->tel }}</td>
+                                <td>{{ $employe->tel }}</td>
+                                <td>{{ $employe->salaire }}</td>
+                                <td>{{ $employe->rib }}</td>
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
                                     <button class="btn btn-sm btn-warning m-1"
-                                        onclick="openModalClient('{{ $client->cin }}','{{ $client->nom }}','{{ $client->prenom }}','{{ $client->email }}','{{ $client->adresse }}','{{ $client->tel }}','{{ $client->id }}','Modifier')">
+                                        onclick="openModalEmploye('{{ $employe->cin }}','{{ $employe->nom }}','{{ $employe->pnom }}','{{ $employe->email }}','{{ $employe->adresse }}','{{ $employe->tel }}','{{ $employe->salaire }}','{{ $employe->rib }}','{{ $employe->id }}','Modifier')">
                                         <i class="zmdi zmdi-edit"></i>
                                     </button>
-                                    @if ($client->etat == 0)
+                                    @if ($employe->etat == 0)
                                         <a class="btn btn-sm btn-danger"
-                                            href="{{ route('Client.archive', ['id' => $client->id, 'val' => 1]) }}"><i
+                                            href="{{ route('Employe.archive', ['id' => $employe->id, 'val' => 1]) }}"><i
                                                 class="zmdi zmdi-archive"></i></a>
                                     @else
                                         <a class="btn btn-sm btn-success"
-                                            href="{{ route('Client.archive', ['id' => $client->id, 'val' => 0]) }}"><i
+                                            href="{{ route('Employe.archive', ['id' => $employe->id, 'val' => 0]) }}"><i
                                                 class="zmdi zmdi-archive"></i></a>
                                     @endif
-                                    <a href="{{ route('client.show', $client->id) }}" class="btn btn-sm btn-info m-1">
+                                    <a href="{{ route('employes.show', $employe->id) }}" class="btn btn-sm btn-info m-1">
                                         Detaille
                                     </a>
                                 </td>
@@ -74,14 +78,14 @@
     </div>
 
     {{-- Modale --}}
-    <div class="modal fade" id="addclt" tabindex="-1" role="dialog" aria-labelledby="addcltLabel" aria-hidden="true"
+    <div class="modal fade" id="addempl" tabindex="-1" role="dialog" aria-labelledby="addcltLabel" aria-hidden="true"
         class="modal hide" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content $">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addcltLabel"></h5>
+                    <h5 class="modal-title" id="addemplLabel"></h5>
                 </div>
-                <form id="formclt" method="post" enctype="multipart/form-data" action="">
+                <form id="formempl" method="post" enctype="multipart/form-data" action="">
                     @csrf
                     @method('POST')
                     <div class="modal-body">
@@ -97,7 +101,7 @@
                         <div class="form-group row mb-2">
                             <label for="name" class="col-sm-4 col-form-label">Prénom</label>
                             <div class="col-sm-8 ">
-                                <input type="text" class="form-control " id="prenom" name="prenom">
+                                <input type="text" class="form-control " id="pnom" name="pnom">
                             </div>
                         </div>
                         <div class="form-group row mb-2">
@@ -118,7 +122,6 @@
                                 <input type="number" class="form-control " id="tel" name="tel">
                             </div>
                         </div>
-
                         <div class="form-group row mb-2">
                             <label for="name" class="col-sm-4 col-form-label">E-mail</label>
                             <div class="col-sm-8">
@@ -126,18 +129,32 @@
                                     pattern=".+@globex\.com" size="30" required>
                             </div>
                         </div>
+                        <div class="form-group row mb-2">
+                            <label for="name" class="col-sm-4 col-form-label">Salaire</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control " id="salaire" name="salaire"
+                                     size="30" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="name" class="col-sm-4 col-form-label">Rib</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control " id="rib" name="rib"
+                                     size="30" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" onclick="verifClt()"
+                        <button type="button" class="btn btn-success" onclick="verifEmpl()"
                             id='myButton'>Enregistrer</button>
                         <button type="button" data-dismiss="modal" class="btn btn-warning"
-                            onclick="closeModal('addclt')">Annuler</button>
+                            onclick="closeModal('addempl')">Annuler</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <script>
-        const RouteStore = "{{ route('client.store') }}";
+        const RouteStore = "{{ route('employes.store') }}";
     </script>
 @endsection
