@@ -341,3 +341,14 @@ function verifEmpl() {
         msgerr.innerHTML = msg;
     }
 }
+
+function openModalUpdateHistPaymt(date, virement, id_employe, id) {
+    $("#date").val(date);
+    $("#virement").val(virement);
+    $("#id_employe").val(id_employe);
+    $("#formupdpymt").attr('action', "histpaymts/" + id);
+    $("input[name='_method']").val('put');
+    modaleInclose('updpaymt');
+
+    $('#updpaymt').modal("show");
+}
