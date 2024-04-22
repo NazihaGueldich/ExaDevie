@@ -19,7 +19,7 @@
                                 Employés Non Archiver</a>
                         @else
                             <a href="{{ route('Employe.archivee') }}" type="button" class="btn btn-light px-5">
-                                Employés   Archiver</a>
+                                Employés Archiver</a>
                         @endif
                     </div>
                 </div>
@@ -53,6 +53,10 @@
                                         onclick="openModalEmploye('{{ $employe->cin }}','{{ $employe->nom }}','{{ $employe->pnom }}','{{ $employe->email }}','{{ $employe->adresse }}','{{ $employe->tel }}','{{ $employe->salaire }}','{{ $employe->rib }}','{{ $employe->id }}','Modifier')">
                                         <i class="zmdi zmdi-edit"></i>
                                     </button>
+                                    <button class="btn btn-sm btn-success m-1"
+                                        onclick="openModalAddHistPaymt('{{ $employe->id }}')">
+                                        $
+                                    </button>
                                     @if ($employe->etat == 0)
                                         <a class="btn btn-sm btn-danger"
                                             href="{{ route('Employe.archive', ['id' => $employe->id, 'val' => 1]) }}"><i
@@ -76,7 +80,11 @@
         <div class="overlay toggle-menu"></div>
 
     </div>
-
+    @if (session('success'))
+        <input hidden id="successForm" value="{{ session('success') }}">
+    @else
+        <input hidden id="successForm" value="0">
+    @endif
     {{-- Modale --}}
     <div class="modal fade" id="addempl" tabindex="-1" role="dialog" aria-labelledby="addcltLabel" aria-hidden="true"
         class="modal hide" data-backdrop="static" data-keyboard="false">
@@ -133,14 +141,14 @@
                             <label for="name" class="col-sm-4 col-form-label">Salaire</label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control " id="salaire" name="salaire"
-                                     size="30" required>
+                                    size="30" required>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="name" class="col-sm-4 col-form-label">Rib</label>
                             <div class="col-sm-8">
                                 <input type="email" class="form-control " id="rib" name="rib"
-                                     size="30" required>
+                                    size="30" required>
                             </div>
                         </div>
                     </div>
@@ -154,7 +162,59 @@
             </div>
         </div>
     </div>
+    {{-- Modale payement --}}
+    <div class="modal fade" id="addpaymt" tabindex="-1" role="dialog" aria-labelledby="addcltLabel"
+        aria-hidden="true" class="modal hide" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content $">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ajouter un virement</h5>
+                </div>
+                <form id="formaddpymt" method="post" enctype="multipart/form-data" action="histpaymts.store">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-body">
+                        <div class="form-group row mb-2">
+                            <label for="name" class="col-sm-4 col-form-label">Date</label>
+                            <div class="col-sm-8 ">
+                                <input type="date" class="form-control " id="date" name="date" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="name" class="col-sm-4 col-form-label">Virement</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control " id="virement" name="virement" required>
+                            </div>
+                        </div>
+                        <input hidden id='id_employe' name='id_employe' value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submite" class="btn btn-success" id='myButton'>Enregistrer</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-warning"
+                            onclick="closeModal('addpaymt')">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script>
         const RouteStore = "{{ route('employes.store') }}";
+        const RouteStorePaymt = "{{ route('histpaymts.store') }}";
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var success = parseInt(document.getElementById('successForm').value);
+            if (success === 1) {
+                Swal.fire({
+                    title: 'Payement',
+                    text: "Votre payement est enregistrer",
+                    icon: 'success',
+                    timer: 3000, 
+                    timerProgressBar: true,
+                });
+            }
+        });
     </script>
 @endsection

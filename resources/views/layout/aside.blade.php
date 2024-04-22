@@ -18,7 +18,7 @@
            <li><a href="{{ route('factures.index') }}"><i class="zmdi zmdi-file-text"></i> <span>Facturs</span></a></li>
            <li><a href="{{ route('client.index') }}"><i class="zmdi zmdi-account-calendar"></i> <span>Clients</span></a></li>
            <li><a href="{{ route('employes.index') }}"><i class="zmdi zmdi-account"></i> <span>Employés</span></a></li>           
-           <li><a href="{{ route('histpaymts.index') }}"><i class="zmdi zmdi-account"></i> <span>Historiques Payement</span></a></li>           
+           <li><a href="{{ route('histpaymts.index') }}">$ &nbsp;&nbsp; <span>Historiques Payement</span></a></li>           
            <li><a href="{{ route('parameter.index') }}"><i class="zmdi zmdi-settings"></i> <span>Paraméters</span></a></li>
 
        </ul>

@@ -352,3 +352,12 @@ function openModalUpdateHistPaymt(date, virement, id_employe, id) {
 
     $('#updpaymt').modal("show");
 }
+
+function openModalAddHistPaymt(id) {
+    $("#id_employe").val(id);
+    $("#formaddpymt").attr('action', RouteStorePaymt);
+    $("input[name='_method']").val('post');
+    modaleInclose('addpaymt');
+
+    $('#addpaymt').modal("show");
+}

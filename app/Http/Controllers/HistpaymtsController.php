@@ -18,7 +18,9 @@ class HistpaymtsController extends Controller
     public function store(Request $request)
     {
         Histpaymts::create($request->all());
-        return redirect()->route('histpaymts.index');
+        return redirect()->route('employes.index')->with([
+            'success' => 1,
+        ]);
     }
 
     public function show(Histpaymts $histpaymts)
