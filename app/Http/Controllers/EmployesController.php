@@ -42,9 +42,11 @@ class EmployesController extends Controller
         return redirect()->route('employes.index');
     }
 
-    public function show(Employes $employes)
+    public function show($id)
     {
-        //
+        $employe=Employes::find($id);
+        $histpaymts=Histpaymts::where('id_employe',$id)->get();
+        return view('pages.employe.detail',compact('employe','histpaymts'));
     }
 
     public function update(Request $request, $id)
