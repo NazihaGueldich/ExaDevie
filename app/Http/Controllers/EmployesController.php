@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employes;
+use App\Models\Histpaymts;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EmployesController extends Controller
@@ -11,7 +13,20 @@ class EmployesController extends Controller
     {
         $employes=Employes::where('etat',0)->get();
         $arch=0;
-        return view('pages.employe.index',compact('employes','arch'));
+        //e5er payement de chaqyue employé
+        $latestPayments = Histpaymts::select('id_employe')
+            ->selectRaw('MAX(date) as latest_date') 
+            ->groupBy('id_employe')  
+            ->orderByDesc('latest_date') 
+            ->get();
+
+        $currentDate = Carbon::now(); 
+        $previousMonthDate = $currentDate->subMonth(); 
+
+        $month = $previousMonthDate->format('m'); 
+        $year = $previousMonthDate->format('Y'); 
+
+        return view('pages.employe.index',compact('employes','arch','latestPayments','month','year'));
     }
 
     public function indexArch()

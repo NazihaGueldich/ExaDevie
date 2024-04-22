@@ -34,6 +34,7 @@
                             <th scope="col">N° téléphone</th>
                             <th scope="col">Salaire</th>
                             <th scope="col">Rib</th>
+                            <th scope="col">Etat</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -48,6 +49,25 @@
                                 <td>{{ $employe->tel }}</td>
                                 <td>{{ $employe->salaire }}</td>
                                 <td>{{ $employe->rib }}</td>
+                                <td>
+                                    @foreach ($latestPayments as $latestPayment)
+                                        @if ($latestPayment->id_employe == $employe->id)
+                                            @php
+                                                $paymentDate = \Carbon\Carbon::parse($latestPayment->latest_date);
+                                                $paymentMonth = $paymentDate->month;
+                                                $paymentYear = $paymentDate->year;
+                                            @endphp
+                                            @if ($paymentMonth == $month && $paymentYear == $year)
+                                                <input type="checkbox" class="form-check-input mx-0" onclick="return false;"
+                                                    readonly checked />
+                                            @else
+                                                <input type="checkbox" class="form-check-input mx-0" onclick="return false;"
+                                                    readonly  />
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                </td>
+
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
                                     <button class="btn btn-sm btn-warning m-1"
                                         onclick="openModalEmploye('{{ $employe->cin }}','{{ $employe->nom }}','{{ $employe->pnom }}','{{ $employe->email }}','{{ $employe->adresse }}','{{ $employe->tel }}','{{ $employe->salaire }}','{{ $employe->rib }}','{{ $employe->id }}','Modifier')">
@@ -211,7 +231,7 @@
                     title: 'Payement',
                     text: "Votre payement est enregistrer",
                     icon: 'success',
-                    timer: 3000, 
+                    timer: 3000,
                     timerProgressBar: true,
                 });
             }
