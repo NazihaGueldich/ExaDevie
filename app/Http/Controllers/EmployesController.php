@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Employes;
 use App\Models\Histpaymts;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Mail\informtCmoptEmpl;
 
 class EmployesController extends Controller
 {
@@ -39,6 +42,16 @@ class EmployesController extends Controller
     public function store(Request $request)
     {
         Employes::create($request->all());
+        $user = User::create([
+            'name'=>$request->nom . ' ' . $request->pnom,
+            'email' => $request->email,
+            'password' => Hash::make($request->tel),
+        ]);
+        $data = [
+            'email' => $request->email,
+            'mdp' => $request->tel,
+        ];
+        \Mail::to($request->email)->send(new informtCmoptEmpl($data));
         return redirect()->route('employes.index');
     }
 
