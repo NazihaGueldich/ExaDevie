@@ -16,6 +16,7 @@ class UserTableSeeder extends Seeder
             'name'=>'ExaDev',
             'email' => 'exadev@exadev.com',
             'password' => Hash::make('12345678'),
+            'role'=>0,
         ]);
     }
 }

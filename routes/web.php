@@ -74,5 +74,9 @@ Route::middleware('auth')->group(function () {
     //payement
     Route::resource("histpaymts", HistpaymtsController::class);
 
+    //blade employe
+    //dashboard
+    Route::get('Welcame_Employe', [DashboardController::class, 'indexEmpl'])->name('Welcame_Employe');
+
 });
 require __DIR__.'/auth.php';

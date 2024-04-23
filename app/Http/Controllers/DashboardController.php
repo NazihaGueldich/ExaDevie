@@ -58,4 +58,9 @@ class DashboardController extends Controller
         $gangePSums = $gangeP->pluck('sum')->toArray();
         return view('dashboard',compact('nbclient','nbdevC','nbdevA','nbFact','nbdevR','nbDev','nbfactS','nbfactP','gangeS','gangeP','months','gangeSSums','gangePSums'));
     }
+
+    public function indexEmpl()
+    {
+        return view('pages.employeblade.dashboard');
+    }
 }
