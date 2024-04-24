@@ -9,6 +9,7 @@ use App\Http\Controllers\FacturesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployesController;
 use App\Http\Controllers\HistpaymtsController;
+use App\Http\Controllers\PresencesEmpsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,6 +78,10 @@ Route::middleware('auth')->group(function () {
     //blade employe
     //dashboard
     Route::get('Welcame_Employe', [DashboardController::class, 'indexEmpl'])->name('Welcame_Employe');
+
+    //presence
+    Route::resource("presenceEmpl", PresencesEmpsController::class);
+    Route::get('presence_employe', [PresencesEmpsController::class, 'indexEmpl'])->name('presence_employe');
 
 });
 require __DIR__.'/auth.php';
