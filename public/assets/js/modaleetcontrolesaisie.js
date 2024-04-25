@@ -361,3 +361,23 @@ function openModalAddHistPaymt(id) {
 
     $('#addpaymt').modal("show");
 }
+
+/* produits */
+function openModalDemndConj(dateD, dateF, cause, id, action) {
+    if (action == "Modifier") {
+        $("#dateD").val(dateD);
+        $("#dateF").val(dateF);
+        $("#cause").val(cause);
+        $("#formdemConj").attr('action', "demandeConge/" + id);
+        $("input[name='_method']").val('put');
+    } else {
+        $("#dateD").val("");
+        $("#dateF").val("");
+        $("#cause").val("");
+        $("#formdemConj").attr('action', RouteStore);
+        $("input[name='_method']").val('post');
+    }
+    $("#adddemconjLabel").html(action + " les informations du demande")
+    modaleInclose('adddemcong');
+    $('#adddemcong').modal("show");
+}

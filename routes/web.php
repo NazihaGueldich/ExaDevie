@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployesController;
 use App\Http\Controllers\HistpaymtsController;
 use App\Http\Controllers\PresencesEmpsController;
+use App\Http\Controllers\DemndcongsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,5 +86,8 @@ Route::middleware('auth')->group(function () {
     Route::get('historique_presence_employe', [PresencesEmpsController::class, 'historiqueEmpl'])->name('historique_presence_employe');
     Route::get('historique_detaille_presence_employe/{id}', [PresencesEmpsController::class, 'historiqueDetEmpl'])->name('historique_detaille_presence_employe');
 
+    //demande conge
+    Route::resource("demandeConge", DemndcongsController::class);
+    Route::get('demande_Conge', [DemndcongsController::class, 'indexEmpl'])->name('demande_Conge');
 });
 require __DIR__.'/auth.php';

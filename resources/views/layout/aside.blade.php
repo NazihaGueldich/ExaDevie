@@ -34,6 +34,8 @@
                </li>
                <li><a href="{{ route('presence_employe') }}"><i class="zmdi zmdi-calendar"></i>
                        <span>Calendrier</span></a></li>
+               <li><a href="{{ route('demande_Conge') }}"><i class="zmdi zmdi-calendar"></i>
+                       <span>Demande Conjé</span></a></li>
            @endif
        </ul>
 
