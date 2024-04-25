@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presences_emps', function (Blueprint $table) {
+        Schema::create('demndcongs', function (Blueprint $table) {
             $table->id();
-            $table->datetime('date')->nullable();
+            $table->datetime('dateD')->nullable();
+            $table->datetime('dateF')->nullable();
             $table->integer('etat')->default(0);
             $table->string('cause')->nullable();
             $table->integer('id_employe')->nullable();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presences_emps');
+        Schema::dropIfExists('demndcongs');
     }
 };
