@@ -129,6 +129,21 @@
             max-width: 1100px;
             height: 700px;
         }
+
+        .presence-green {
+            background-color: green !important;
+            color: white;
+        }
+
+        .absence-red {
+            background-color: red !important;
+            color: white;
+        }
+
+        .conge-yellow {
+            background-color: yellow !important;
+            color: white;
+        }
     </style>
 
     <!-- Include FullCalendar JS and CSS -->
@@ -152,16 +167,62 @@
         document.addEventListener('DOMContentLoaded', function() {
             const Calendar = FullCalendar.Calendar;
             const calendarEl = document.getElementById('calendar');
+            //54it les inf de pres abs wcong
+            const presences = @json($presences);
+            const conges = @json($conjs);
+
+            //fct bch nara 3atiha date start wend wtraga3 les dates ili binhom ilkoll
+            function getDatesInRange(startDate, endDate) {
+                const dates = [];
+                let currentDate = new Date(startDate);
+                while (currentDate <= new Date(endDate)) {
+                    dates.push(currentDate.toISOString().split('T')[0]); 
+                    currentDate.setDate(currentDate.getDate() + 1); 
+                }
+                return dates;
+            }
+
+            const events = [];
+
+            presences.forEach(presence => {
+                let className = '';
+
+                if (presence.etat === 0) {
+                    className = 'presence-green'; // Presence
+                } else if (presence.etat === 1) {
+                    className = 'absence-red'; // Absence
+                }
+                events.push({
+                    title: className === 'presence-green' ? 'Presence' : 'Absence',
+                    start: presence.date.split(' ')[0],
+                    allDay: true,
+                    classNames: className
+                });
+            });
+
+            conges.forEach(conge => {
+                const congeDates = getDatesInRange(conge.dateD.split(' ')[0], conge.dateF.split(' ')[0]);
+
+                congeDates.forEach(date => {
+                    events.push({
+                        title: 'Congé',
+                        start: date,
+                        allDay: true,
+                        classNames: 'conge-yellow' 
+                    });
+                });
+            });
 
             const calendar = new Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    /* right: 'dayGridMonth,timeGridWeek,timeGridDay' */
+                    right: 'dayGridMonth'
                 },
-                //kine5tar nhar y'affichili modale 
-                dateClick: function(info) { // Event handler for day clicks
+                events: events,
+                dateClick: function(info) {
                     document.getElementById('dateselectionner').value = info.dateStr;
                     $('#dayModal').modal('show');
                 }
@@ -169,6 +230,8 @@
 
             calendar.render();
         });
+
+
 
         function TypeEnregst() {
             type = document.getElementById('type').value;

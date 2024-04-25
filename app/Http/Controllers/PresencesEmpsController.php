@@ -19,8 +19,9 @@ class PresencesEmpsController extends Controller
     {
         $user = Auth::user();
         $employe=Employes::where('email',$user->email)->first();
-        $presences=PresencesEmps::find($employe->id);
-        return view('pages.employe.presence',compact('presences'));
+        $presences=PresencesEmps::where('id_employe',$employe->id)->get();
+        $conjs=Demndcongs::where('id_employe',$employe->id)->where('etat',1)->get();
+        return view('pages.employe.presence',compact('presences','presences','conjs'));
     }
 
     public function store(Request $request)

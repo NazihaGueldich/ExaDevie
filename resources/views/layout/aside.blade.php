@@ -32,8 +32,8 @@
                        <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
                    </a>
                </li>
-               <li><a href="{{ route('presence_employe') }}"><i class="zmdi zmdi-settings"></i>
-                       <span>Présence</span></a></li>
+               <li><a href="{{ route('presence_employe') }}"><i class="zmdi zmdi-calendar"></i>
+                       <span>Calendrier</span></a></li>
            @endif
        </ul>
 
