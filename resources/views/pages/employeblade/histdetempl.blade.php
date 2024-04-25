@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                     <div class="mb-3 mb-sm-0">
-                        <h5 class="card-title fw-semibold">{{ $titre }} de M(e).{{$employe->nom}} {{$employe->pnom}}</h5>
+                        <h5 class="card-title fw-semibold">{{ $titre }}</h5>
                     </div>
 
                 </div>

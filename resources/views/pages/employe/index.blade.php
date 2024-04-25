@@ -89,6 +89,10 @@
                                     <a href="{{ route('employes.show', $employe->id) }}" class="btn btn-sm btn-info m-1">
                                         Detaille
                                     </a>
+                                    <a href="{{ route('presenceEmpl.afficher', ['id' => $employe->id]) }}" class="btn btn-sm btn-info m-1">
+                                        Presence
+                                    </a>
+                                    
                                 </td>
                             </tr>
                         @endforeach

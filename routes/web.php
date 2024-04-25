@@ -76,9 +76,15 @@ Route::middleware('auth')->group(function () {
     //payement
     Route::resource("histpaymts", HistpaymtsController::class);
 
+    //presence
+    Route::get('presenceEmpl_afficher/{id}', [PresencesEmpsController::class, 'indexAdmin'])->name('presenceEmpl.afficher');
+
+
     //blade employe
     //dashboard
     Route::get('Welcame_Employe', [DashboardController::class, 'indexEmpl'])->name('Welcame_Employe');
+    Route::get('historiquepresenceemploye/{id}', [PresencesEmpsController::class, 'historiqueEmplAdm'])->name('historiquepresenceemploye');
+    Route::get('historiquedetaillepresenceemploye/{emp}/{id}', [PresencesEmpsController::class, 'historiqueDetEmplAdm'])->name('historiquedetaillepresenceemploye');
 
     //presence
     Route::resource("presenceEmpl", PresencesEmpsController::class);
