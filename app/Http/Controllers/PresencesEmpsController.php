@@ -7,6 +7,8 @@ use App\Models\Employes;
 use App\Models\Demndcongs;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Auth;
 
 class PresencesEmpsController extends Controller
@@ -21,7 +23,41 @@ class PresencesEmpsController extends Controller
         $employe=Employes::where('email',$user->email)->first();
         $presences=PresencesEmps::where('id_employe',$employe->id)->get();
         $conjs=Demndcongs::where('id_employe',$employe->id)->where('etat',1)->get();
-        return view('pages.employe.presence',compact('presences','presences','conjs'));
+        return view('pages.employe.presence',compact('presences','conjs'));
+    }
+
+    public function historiqueEmpl()
+    {
+        $user = Auth::user();
+        $employe=Employes::where('email',$user->email)->first();
+        $presences=PresencesEmps::where('id_employe',$employe->id)->where('etat',0)->count();
+        $absences=PresencesEmps::where('id_employe',$employe->id)->where('etat',1)->count();
+        $conjs=Demndcongs::where('id_employe',$employe->id)->where('etat',1)->get();
+        $nbjConj = 0; 
+        foreach ($conjs as $cong) {
+            $dateD = Carbon::parse($cong->dateD);
+            $dateF = Carbon::parse($cong->dateF);
+            $days = $dateF->diffInDays($dateD) + 1; 
+            $nbjConj += $days;
+        }
+        return view('pages.employe.histempl',compact('absences','presences','nbjConj'));
+    }
+    
+    public function historiqueDetEmpl($id)
+    {
+        $user = Auth::user();
+        $employe=Employes::where('email',$user->email)->first();
+        if($id==0){
+            $titre='Historique De Présence';
+            $datas=PresencesEmps::where('id_employe',$employe->id)->where('etat',0)->get();
+        }else if($id==1){
+            $titre="Historique D'Absences";
+            $datas=PresencesEmps::where('id_employe',$employe->id)->where('etat',1)->get();
+        }else{
+            $titre='Historique De Conjé';
+            $datas=Demndcongs::where('id_employe',$employe->id)->where('etat',1)->get();
+        }
+        return view('pages.employe.histdetempl',compact('titre','datas','id'));
     }
 
     public function store(Request $request)

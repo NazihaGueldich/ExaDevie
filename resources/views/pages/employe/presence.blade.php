@@ -8,6 +8,10 @@
                     <div class="mb-3 mb-sm-0">
                         <h5 class="card-title fw-semibold">Présences</h5>
                     </div>
+                    <div class="d-flex align-items-center">
+                        <a type="button" class="btn btn-light px-5 mr-2" href="{{ route('historique_presence_employe') }}" >
+                            Historiques</a>
+                    </div>
                 </div>
                 <hr>
                 <div>

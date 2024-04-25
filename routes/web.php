@@ -82,6 +82,8 @@ Route::middleware('auth')->group(function () {
     //presence
     Route::resource("presenceEmpl", PresencesEmpsController::class);
     Route::get('presence_employe', [PresencesEmpsController::class, 'indexEmpl'])->name('presence_employe');
+    Route::get('historique_presence_employe', [PresencesEmpsController::class, 'historiqueEmpl'])->name('historique_presence_employe');
+    Route::get('historique_detaille_presence_employe/{id}', [PresencesEmpsController::class, 'historiqueDetEmpl'])->name('historique_detaille_presence_employe');
 
 });
 require __DIR__.'/auth.php';
