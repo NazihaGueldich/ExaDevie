@@ -92,7 +92,7 @@
                 }
                 events.push({
                     title: className === 'presence-green' ? 'Presence' : 'Absence',
-                    start: presence.date.split(' ')[0],
+                    start: presence.dateD.split(' ')[0],
                     allDay: true,
                     classNames: className
                 });

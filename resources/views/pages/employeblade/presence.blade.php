@@ -54,13 +54,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Date début</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="dateDP" id="dateDP">
+                                        <input type="datetime-local" class="form-control" name="dateDP" id="dateDP">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Date fin</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="dateFP" id="dateFP">
+                                        <input type="datetime-local" class="form-control" name="dateFP" id="dateFP">
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                 }
                 events.push({
                     title: className === 'presence-green' ? 'Presence' : 'Absence',
-                    start: presence.date.split(' ')[0],
+                    start: presence.dateD.split(' ')[0],
                     allDay: true,
                     classNames: className
                 });
@@ -250,6 +250,20 @@
                 document.getElementById("dateFP").setAttribute("max", today);
                 document.getElementById("dateDP").value = dateselectionner;
                 document.getElementById("dateFP").value = dateselectionner;
+                
+
+                const now = new Date().toISOString().slice(0, 16);
+                document.getElementById("dateDP").setAttribute("max", now);
+                document.getElementById("dateFP").setAttribute("max", now);
+                let parts = dateselectionner.split('/');
+                if (parts.length === 3) {
+                    let [month, day, year] = parts;
+                    dateselectionner = `${year}-${month}-${day}`;
+                }
+                let DateWithTimeS = `${dateselectionner}T08:00`;
+                let DateWithTimeE = `${dateselectionner}T18:00`;
+                document.getElementById("dateDP").value = DateWithTimeS;
+                document.getElementById("dateFP").value = DateWithTimeE;
             } else if (type == 1) {
                 document.getElementById("pres").style.display = "none";
                 document.getElementById("abs").style.display = "block";
@@ -263,9 +277,10 @@
                     let [month, day, year] = parts;
                     dateselectionner = `${year}-${month}-${day}`;
                 }
-                let DateWithTime = `${dateselectionner}T00:00`;
-                document.getElementById("dateDA").value = DateWithTime;
-                document.getElementById("dateFA").value = DateWithTime;
+                let DateWithTimeS = `${dateselectionner}T08:00`;
+                let DateWithTimeE = `${dateselectionner}T18:00`;
+                document.getElementById("dateDA").value = DateWithTimeS;
+                document.getElementById("dateFA").value = DateWithTimeE;
             } else if (type == 2) {
                 document.getElementById("pres").style.display = "none";
                 document.getElementById("abs").style.display = "none";
@@ -279,9 +294,10 @@
                     let [month, day, year] = parts;
                     dateselectionner = `${year}-${month}-${day}`;
                 }
-                let DateWithTime = `${dateselectionner}T00:00`;
-                document.getElementById("dateDDC").value = DateWithTime;
-                document.getElementById("dateFDC").value = DateWithTime;
+                let DateWithTimeS = `${dateselectionner}T08:00`;
+                let DateWithTimeE = `${dateselectionner}T18:00`;
+                document.getElementById("dateDDC").value = DateWithTimeS;
+                document.getElementById("dateFDC").value = DateWithTimeE;
             }
         }
 

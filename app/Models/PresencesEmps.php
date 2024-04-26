@@ -9,7 +9,7 @@ class PresencesEmps extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'date','etat','cause','id_employe'
+        'dateD','dateF','etat','cause','id_employe'
     ];
     public function employes()
     { 

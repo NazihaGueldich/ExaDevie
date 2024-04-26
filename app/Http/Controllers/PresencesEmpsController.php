@@ -103,18 +103,30 @@ class PresencesEmpsController extends Controller
             $nbj = $secondsDifference / (60 * 60 * 24);
             $nbj = (int)$nbj;
             //il date ili bch nzidou
-            $date=$request->dateDP;
+            $dateD=$request->dateDP;
+            $dateF=$request->dateFP;
             for ($i = 0; $i <= $nbj; $i++) {
-                //bch narah heka enhar sbt walla a7add
-                $dayOfWeek = date("w", strtotime($date));
-                if ($dayOfWeek != 0 && $dayOfWeek != 6) {
+                if($nbj==0){
                     PresencesEmps::create([
-                        'date' => $date,
+                        'dateD' => $request->dateDP,
+                        'dateF' => $request->dateFP,
                         'etat' => 0,
                         'id_employe' => $employe->id,
                     ]);
-                }
-                $date = date("Y-m-d", strtotime($date . " +1 day"));
+                }else{
+                    //bch narah heka enhar sbt walla a7add
+                    $dayOfWeek = date("w", strtotime($dateD));
+                    if ($dayOfWeek != 0 && $dayOfWeek != 6) {
+                        PresencesEmps::create([
+                            'dateD' => $dateD,
+                            'dateF' => $dateF,
+                            'etat' => 0,
+                            'id_employe' => $employe->id,
+                        ]); 
+                    }
+                    $dateD = date("Y-m-d", strtotime($dateD . " +1 day")) . "T08:00"; 
+                    $dateF = date("Y-m-d", strtotime($dateF . " +1 day")) . "T18:00";
+                }                
             }
         }else if ($type==1){
              //bch n7sb dif de nombre de jours
@@ -124,19 +136,32 @@ class PresencesEmpsController extends Controller
              $nbj = $secondsDifference / (60 * 60 * 24);
              $nbj = (int)$nbj;
              //il date ili bch nzidou
-             $date=$request->dateDA;
+             $dateD=$request->dateDA;
+             $dateF=$request->dateFA;
              for ($i = 0; $i <= $nbj; $i++) {
-                 //bch narah heka enhar sbt walla a7add
-                 $dayOfWeek = date("w", strtotime($date));
-                 if ($dayOfWeek != 0 && $dayOfWeek != 6) {
-                     PresencesEmps::create([
-                         'date' => $date,
-                         'etat' => 1,
+                if($nbj==0){
+                    PresencesEmps::create([
+                        'dateD' => $dateD,
+                        'dateF' => $dateF,
+                        'etat' => 1,
+                        'cause'=>$request->causeA,
+                        'id_employe' => $employe->id,
+                    ]);
+                }else{
+                    //bch narah heka enhar sbt walla a7add
+                    $dayOfWeek = date("w", strtotime($dateD));
+                    if ($dayOfWeek != 0 && $dayOfWeek != 6) {
+                        PresencesEmps::create([
+                            'dateD' => $dateD,
+                            'dateF' => $dateF,
+                            'etat' => 1,
                          'cause'=>$request->causeA,
                          'id_employe' => $employe->id,
-                     ]);
-                 }
-                 $date = date("Y-m-d", strtotime($date . " +1 day"));
+                        ]); 
+                    }
+                    $dateD = date("Y-m-d", strtotime($dateD . " +1 day")) . "T08:00"; 
+                    $dateF = date("Y-m-d", strtotime($dateF . " +1 day")) . "T18:00";
+                }
              }
         }else if ($type==2){
             Demndcongs::create([
