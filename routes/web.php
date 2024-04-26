@@ -79,6 +79,9 @@ Route::middleware('auth')->group(function () {
     //presence
     Route::get('presenceEmpl_afficher/{id}', [PresencesEmpsController::class, 'indexAdmin'])->name('presenceEmpl.afficher');
 
+    //demande conjé
+    Route::resource("demandeConge", DemndcongsController::class);
+    Route::get('Demande/etat/{id}/{val}', [DemndcongsController::class, 'etat'])->name('Demande.etat');
 
     //blade employe
     //dashboard
@@ -93,7 +96,6 @@ Route::middleware('auth')->group(function () {
     Route::get('historique_detaille_presence_employe/{id}', [PresencesEmpsController::class, 'historiqueDetEmpl'])->name('historique_detaille_presence_employe');
 
     //demande conge
-    Route::resource("demandeConge", DemndcongsController::class);
     Route::get('demande_Conge', [DemndcongsController::class, 'indexEmpl'])->name('demande_Conge');
 });
 require __DIR__.'/auth.php';

@@ -10,7 +10,8 @@ class DemndcongsController extends Controller
 {
     public function index()
     {
-        //
+        $conjs=Demndcongs::where('etat',0)->get();
+        return view('pages.employe.demandecong',compact('conjs'));
     }
 
     public function indexEmpl()
@@ -18,7 +19,7 @@ class DemndcongsController extends Controller
         $user = Auth::user();
         $employe=Employes::where('email',$user->email)->first();
         $conjs=Demndcongs::where('id_employe',$employe->id)->get();
-        return view('pages.employe.demandecong',compact('conjs'));
+        return view('pages.employeblade.demandecong',compact('conjs'));
     }
 
     public function store(Request $request)
@@ -32,6 +33,13 @@ class DemndcongsController extends Controller
             'id_employe' => $employe->id,
         ]);
         return redirect()->route('demande_Conge');
+    }
+
+    public function etat($id,$val){
+        $demande=Demndcongs::find($id);
+        $demande->etat = $val;
+        $demande->update();
+        return redirect()->route('demandeConge.index');
     }
 
     public function show(Demndcongs $demndcongs)

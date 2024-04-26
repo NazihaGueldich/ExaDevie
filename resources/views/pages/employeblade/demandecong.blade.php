@@ -9,30 +9,52 @@
                     <div class="mb-3 mb-sm-0">
                         <h5 class="card-title fw-semibold">Demande Congés</h5>
                     </div>
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="btn btn-light px-5 mr-2"
+                            onclick="openModalDemndConj('','','','','Ajouter')"><i class="zmdi zmdi-plus"></i>
+                            Ajouter</button>
+                    </div>
                 </div>
                 <hr>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Employes</th>
                             <th scope="col">Durée</th>
                             <th scope="col">Cause</th>
+                            <th scope="col">Etat</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($conjs as $conj)
                             <tr>
-                                <td>{{ $conj->employes->nom }} {{ $conj->employes->pnom }}</td>
                                 <td>Du {{ $conj->dateD }} au {{ $conj->dateF }}</td>
                                 <td>{{ $conj->cause }}</td>
+                                <td>
+                                    @switch($conj->etat)
+                                    @case(0)
+                                        <span class="badge bg-info me-1">A l'étude par l'admin</span>
+                                    @break
+
+                                    @case(1)
+                                        <span class="badge bg-success me-1">Accepter</span>
+                                    @break
+
+                                    @case(2)
+                                        <span class="badge bg-danger me-1">Refusé</span>
+                                    @break
+
+                                    @default
+                                        <span class="badge bg-warning me-1">Etat inconnu</span>
+                                @endswitch
+                                </td>
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
-                                    <a class="btn btn-sm btn-success" onclick="return confirm('Etes vous sure de l accepter?')"
-                                        href="{{ route('Demande.etat', ['id' => $conj->id, 'val' => 1]) }}"><i
-                                            class="zmdi zmdi-archive"></i></a>
-                                    <a class="btn btn-sm btn-danger" onclick="return confirm('Etes vous sure de refuser?')"
-                                        href="{{ route('Demande.etat', ['id' => $conj->id, 'val' => 2]) }}"><i
-                                            class="zmdi zmdi-archive"></i></a>
+                                    @if ($conj->etat == 0)
+                                        <button class="btn btn-sm btn-warning m-1"
+                                            onclick="openModalDemndConj('{{ $conj->dateD }}','{{ $conj->dateF }}','{{ $conj->cause }}','{{ $conj->id }}','Modifier')">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -78,7 +100,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submite" class="btn btn-success" id='myButton'>Enregistrer</button>
+                        <button type="submite" class="btn btn-success" 
+                            id='myButton'>Enregistrer</button>
                         <button type="button" data-dismiss="modal" class="btn btn-warning"
                             onclick="closeModal('adddemcong')">Annuler</button>
                     </div>
@@ -89,7 +112,7 @@
     <script>
         const RouteStore = "{{ route('demandeConge.store') }}";
     </script>
-    <script>
+     <script>
         let table = new DataTable('.table', {
             "order": [
                 [3, 'asc']
