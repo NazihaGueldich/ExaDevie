@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Factures;
 use App\Models\Clients;
 use App\Models\Devis;
+use App\Models\Employes;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +17,15 @@ class DashboardController extends Controller
     public function index()
     {
         $nbclient=Clients::where('etat',0)->count();
+        $nbclientTot=Clients::count();
         $nbdevC=Devis::where('etat',0)->count();
         $nbdevA=Devis::where('etat',1)->count();
         $nbdevR=Devis::where('etat',2)->count();
         $nbDev=Devis::count();
         $nbFact=Factures::count();
+
+        $nbEmplC=Employes::where('etat',0)->count();
+        $nbEmplTot=Employes::count();
 
         $nbfactS=Factures::whereNotNull('id_devi')->count();
         $nbfactP=Factures::whereNull('id_devi')->count();
@@ -56,7 +61,7 @@ class DashboardController extends Controller
         })->toArray();
         $gangeSSums = $gangeS->pluck('sum')->toArray();
         $gangePSums = $gangeP->pluck('sum')->toArray();
-        return view('dashboard',compact('nbclient','nbdevC','nbdevA','nbFact','nbdevR','nbDev','nbfactS','nbfactP','gangeS','gangeP','months','gangeSSums','gangePSums'));
+        return view('dashboard',compact('nbclient','nbclientTot','nbEmplTot','nbEmplC','nbdevC','nbdevA','nbFact','nbdevR','nbDev','nbfactS','nbfactP','gangeS','gangeP','months','gangeSSums','gangePSums'));
     }
 
     public function indexEmpl()

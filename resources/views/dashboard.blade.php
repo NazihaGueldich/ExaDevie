@@ -9,10 +9,13 @@
                     <div class="col-12 col-lg-6 col-xl-3 border-light">
                         <a href="{{ route('client.index') }}">
                             <div class="card-body">
+                                @php
+                                    $widthnbclient = $nbclientTot > 0 ? ($nbclient * 100) / $nbclientTot : 0;
+                                @endphp
                                 <h5 class="text-white mb-0">{{ $nbclient }} <span class="float-right"><i
                                             class="zmdi zmdi-male-female"></i></span></h5>
                                 <div class="progress my-3" style="height:3px;">
-                                    <div class="progress-bar" style="width:55%"></div>
+                                    <div class="progress-bar" style="width:{{ $widthnbclient }}%"></div>
                                 </div>
                                 <p class="mb-0 text-white small-font">Clients </p>
                             </div>
@@ -21,27 +24,33 @@
                     <div class="col-12 col-lg-6 col-xl-3 border-light">
                         <a href="{{ route('devis.en_cours') }}">
                             <div class="card-body">
-                                <h5 class="text-white mb-0">{{ $nbdevC }} <span class="float-right"><i
-                                            class="fa fa-file"></i><i class="fa fa-check" style="color: black"></i></span>
+                                <h5 class="text-white mb-0">{{ $nbdevC }} <span class="float-right">
+                                        <i class="fa fa-clock-o"></i></span>
                                 </h5>
+                                @php
+                                    $widthnbdevC = $nbDev > 0 ? ($nbdevC * 100) / $nbDev : 0;
+                                @endphp
                                 <div class="progress my-3" style="height:3px;">
-                                    <div class="progress-bar" style="width:55%"></div>
+                                    <div class="progress-bar" style="width:{{ $widthnbdevC }}%">
+                                    </div>
                                 </div>
                                 <p class="mb-0 text-white small-font">Devis En Cours </p>
                             </div>
                         </a>
                     </div>
                     <div class="col-12 col-lg-6 col-xl-3 border-light">
-                        <a href="{{ route('devis.accepter') }}">
+                        <a href="{{ route('employes.index') }}">
                             <div class="card-body">
-                                <h5 class="text-white mb-0">{{ $nbdevA }} <span class="float-right"><i
-                                            class="fa fa-file"></i><i class="fa fa-tachometer"
-                                            style="color: black"></i></span>
+                                @php
+                                    $widthnbEmpC = $nbEmplTot > 0 ? ($nbEmplC * 100) / $nbEmplTot : 0;
+                                @endphp
+                                <h5 class="text-white mb-0">{{ $nbEmplC }} <span class="float-right">
+                                        <i class="zmdi zmdi-male-female"></i></span>
                                 </h5>
                                 <div class="progress my-3" style="height:3px;">
-                                    <div class="progress-bar" style="width:55%"></div>
+                                    <div class="progress-bar" style="width:{{ $widthnbEmpC }}%"></div>
                                 </div>
-                                <p class="mb-0 text-white small-font">Devis Accepter </p>
+                                <p class="mb-0 text-white small-font">Employés </p>
                             </div>
                         </a>
                     </div>
