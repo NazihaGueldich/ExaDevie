@@ -9,7 +9,7 @@
                         <h5 class="card-title fw-semibold">Présences</h5>
                     </div>
                     <div class="d-flex align-items-center">
-                        <a type="button" class="btn btn-light px-5 mr-2" href="{{ route('historique_presence_employe') }}" >
+                        <a type="button" class="btn btn-light px-5 mr-2" href="{{ route('historique_presence_employe') }}">
                             Historiques</a>
                     </div>
                 </div>
@@ -180,8 +180,8 @@
                 const dates = [];
                 let currentDate = new Date(startDate);
                 while (currentDate <= new Date(endDate)) {
-                    dates.push(currentDate.toISOString().split('T')[0]); 
-                    currentDate.setDate(currentDate.getDate() + 1); 
+                    dates.push(currentDate.toISOString().split('T')[0]);
+                    currentDate.setDate(currentDate.getDate() + 1);
                 }
                 return dates;
             }
@@ -196,8 +196,13 @@
                 } else if (presence.etat === 1) {
                     className = 'absence-red'; // Absence
                 }
+                const timeD = new Date(presence.dateD).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                const timeF = new Date(presence.dateF).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                const title = (className === 'presence-green') ?
+                    'Presence:de ' + timeD + ' jusqu\'à ' + timeF :
+                    'Absence:de ' + timeD + ' jusqu\'à ' + timeF;
                 events.push({
-                    title: className === 'presence-green' ? 'Presence' : 'Absence',
+                    title: title,
                     start: presence.dateD.split(' ')[0],
                     allDay: true,
                     classNames: className
@@ -212,7 +217,7 @@
                         title: 'Congé',
                         start: date,
                         allDay: true,
-                        classNames: 'conge-yellow' 
+                        classNames: 'conge-yellow'
                     });
                 });
             });
@@ -250,7 +255,7 @@
                 document.getElementById("dateFP").setAttribute("max", today);
                 document.getElementById("dateDP").value = dateselectionner;
                 document.getElementById("dateFP").value = dateselectionner;
-                
+
 
                 const now = new Date().toISOString().slice(0, 16);
                 document.getElementById("dateDP").setAttribute("max", now);

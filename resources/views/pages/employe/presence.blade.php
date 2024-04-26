@@ -90,8 +90,13 @@
                 } else if (presence.etat === 1) {
                     className = 'absence-red'; // Absence
                 }
+                const timeD = new Date(presence.dateD).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                const timeF = new Date(presence.dateF).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                const title = (className === 'presence-green') ?
+                    'Presence:de ' + timeD + ' jusqu\'à ' + timeF :
+                    'Absence:de ' + timeD + ' jusqu\'à ' + timeF;
                 events.push({
-                    title: className === 'presence-green' ? 'Presence' : 'Absence',
+                    title: title,
                     start: presence.dateD.split(' ')[0],
                     allDay: true,
                     classNames: className
