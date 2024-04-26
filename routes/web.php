@@ -97,5 +97,10 @@ Route::middleware('auth')->group(function () {
 
     //demande conge
     Route::get('demande_Conge', [DemndcongsController::class, 'indexEmpl'])->name('demande_Conge');
+
+    //edit information
+    Route::get('Employe/modifier', [EmployesController::class, 'edit'])->name('employes.edit');
+    Route::post('Employe/update', [EmployesController::class, 'updateInf'])->name('employes.modifier');
+
 });
 require __DIR__.'/auth.php';

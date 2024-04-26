@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\informtCmoptEmpl;
 
+use Illuminate\Support\Facades\Auth;
+
 class EmployesController extends Controller
 {
     public function index()
@@ -69,6 +71,23 @@ class EmployesController extends Controller
         return redirect()->route('employes.index');
     }
 
+    public function edit()
+    {
+        $user = Auth::user();
+        $employe=Employes::where('email',$user->email)->first();
+        return view('pages.employeblade.editinfo',compact('employe'));
+    }
+
+    public function updateInf(Request $request)
+    {
+        $employe=Employes::find($request->id_emp);
+        $employe->update($request->all());
+        $employe=Employes::find($request->id_emp);
+        return view('pages.employeblade.editinfo',compact('employe'));
+    }
+    
+
+    
     public function destroy(Employes $employes)
     {
         //

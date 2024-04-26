@@ -23,7 +23,8 @@
                        <span>Clients</span></a></li>
                <li><a href="{{ route('employes.index') }}"><i class="zmdi zmdi-account"></i> <span>Employés</span></a>
                </li>
-                <li><a href="{{ route('demandeConge.index') }}"><i class="fa fa-clipboard"></i> <span>Demande Congés</span></a>
+               <li><a href="{{ route('demandeConge.index') }}"><i class="fa fa-clipboard"></i> <span>Demande
+                           Congés</span></a>
                </li>
                <li><a href="{{ route('histpaymts.index') }}">$ &nbsp;&nbsp; <span>Historiques Payement</span></a></li>
                <li><a href="{{ route('parameter.index') }}"><i class="zmdi zmdi-settings"></i>
@@ -38,6 +39,8 @@
                        <span>Calendrier</span></a></li>
                <li><a href="{{ route('demande_Conge') }}"><i class="zmdi zmdi-file-text"></i>
                        <span>Demande Conjé</span></a></li>
+               <li><a href="{{ route('employes.edit') }}"><i class="zmdi zmdi-settings"></i>
+                       <span>Paraméters</span></a></li>
            @endif
        </ul>
 
