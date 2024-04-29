@@ -11,6 +11,7 @@ use App\Http\Controllers\EmployesController;
 use App\Http\Controllers\HistpaymtsController;
 use App\Http\Controllers\PresencesEmpsController;
 use App\Http\Controllers\DemndcongsController;
+use App\Http\Controllers\PayementfactsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,6 +83,9 @@ Route::middleware('auth')->group(function () {
     //demande conjé
     Route::resource("demandeConge", DemndcongsController::class);
     Route::get('Demande/etat/{id}/{val}', [DemndcongsController::class, 'etat'])->name('Demande.etat');
+
+    //payement facture
+    Route::resource("paymtsfacts", PayementfactsController::class);
 
     //blade employe
     //dashboard

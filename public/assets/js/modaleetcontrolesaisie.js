@@ -381,3 +381,12 @@ function openModalDemndConj(dateD, dateF, cause, id, action) {
     modaleInclose('adddemcong');
     $('#adddemcong').modal("show");
 }
+
+function openModalAddPaymt(id) {
+    $("#id_facture").val(id);
+    $("#formpymtFact").attr('action', RouteStorePaymt);
+    $("input[name='_method']").val('post');
+    modaleInclose('addpaymtfact');
+
+    $('#addpaymtfact').modal("show");
+}

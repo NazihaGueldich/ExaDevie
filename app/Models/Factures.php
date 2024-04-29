@@ -9,7 +9,7 @@ class Factures extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'num','sujet','MTTTC','MTHT','totTVA','id_devi','id_client'
+        'num','sujet','MTTTC','MTHT','totTVA','rest','id_devi','id_client'
     ];
     public function devis()
     { 

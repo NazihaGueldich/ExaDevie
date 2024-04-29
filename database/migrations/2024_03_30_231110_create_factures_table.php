@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('MTTTC')->default(0);
             $table->float('MTHT')->default(0);
             $table->float('totTVA')->default(0);
+            $table->float('rest')->default(0);
             $table->integer('id_devi')->nullable();
             $table->integer('id_client')->nullable();
             $table->timestamps();

@@ -152,8 +152,10 @@ class FacturesController extends Controller
         $facture=Factures::find($id);
         if(is_null($facture->MTHT)){
             $facture->MTHT = $prix;
+            $facture->rest = $prix;
         }else{
             $facture->MTHT = $facture->MTHT+$prix;
+            $facture->rest = $facture->rest+$prix;
         }
         $facture->update();
     }
