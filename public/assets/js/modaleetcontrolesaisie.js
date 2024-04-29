@@ -390,3 +390,13 @@ function openModalAddPaymt(id) {
 
     $('#addpaymtfact').modal("show");
 }
+
+function openModalEditPaymt(date, type, virement, id) {
+    $("#date").val(date);
+    $("#virement").val(virement);
+    $("#type").val(type);
+    $("#formupdpymt").attr('action', "/paymtsfacts/" + id);
+    
+    $("input[name='_method']").val('put'); 
+    $("#editpaymtfact").modal("show");  
+}

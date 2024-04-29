@@ -58,7 +58,9 @@
                                             $
                                         </button>
                                     @endif
-
+                                    <a href="{{ route('paymtsfacts.show', $facture->id) }}" class="btn btn-sm btn-secondary m-1">
+                                        Historique Payement
+                                    </a>
                                     <a href="{{ route('factures.details', ['id' => $facture->id]) }}"
                                         class="btn btn-sm btn-info m-1">
                                         Detaille

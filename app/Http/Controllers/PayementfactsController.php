@@ -27,25 +27,30 @@ class PayementfactsController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Payementfacts $payementfacts)
+    public function show($id)
     {
-        //
+        $facture=Factures::find($id);
+        $payementfacts=Payementfacts::where('id_facture',$id)->get();
+        return view('pages.factures.histpayement',compact('facture','payementfacts'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Payementfacts $payementfacts)
+    public function update(Request $request, $id)
     {
-        //
+        $payementfacts=Payementfacts::find($id);
+        $oldvir=$payementfacts->virement;
+        $facture=Factures::find($payementfacts->id_facture);
+        if($oldvir > $request->virement){
+            $flouth=$oldvir - $request->virement;
+        }else{
+            $flouth=  $oldvir-$request->virement;
+        }
+        $facture->rest+=$flouth;
+        $payementfacts->update($request->all());
+        $facture->update();
+        $payementfacts=Payementfacts::where('id_facture',$payementfacts->id_facture)->get();
+        return view('pages.factures.histpayement',compact('facture','payementfacts'));    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Payementfacts $payementfacts)
     {
         //
