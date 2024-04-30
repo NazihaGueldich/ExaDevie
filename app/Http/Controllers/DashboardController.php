@@ -7,10 +7,11 @@ use App\Models\Clients;
 use App\Models\Devis;
 use App\Models\Employes;
 use App\Models\Caisses;
+use App\Models\Emplinpays;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -69,6 +70,9 @@ class DashboardController extends Controller
 
     public function indexEmpl()
     {
-        return view('pages.employeblade.dashboard');
+        $user = Auth::user();
+        $employe=Employes::where('email',$user->email)->first();
+        $caisse=Emplinpays::where('id_employe',$employe->id)->first();
+        return view('pages.employeblade.dashboard',compact('caisse'));
     }
 }

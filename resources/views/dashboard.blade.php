@@ -9,11 +9,8 @@
                     <div class=" border-light">
                         <a href="{{ route('histcaisse.index') }}">
                             <div class="card-body">
-                                @php
-                                    $widthnbclient = $nbclientTot > 0 ? ($nbclient * 100) / $nbclientTot : 0;
-                                @endphp
                                 <h5 class="text-white mb-0">
-                                    Caisse:
+                                    Salaire Restant:
                                     <span class="float-right">
                                         @if (isset($caisse->totale))
                                             {{ $caisse->totale }}
