@@ -50,22 +50,16 @@
                                 <td>{{ $employe->salaire }}</td>
                                 <td>{{ $employe->rib }}</td>
                                 <td>
-                                    @foreach ($latestPayments as $latestPayment)
-                                        @if ($latestPayment->id_employe == $employe->id)
-                                            @php
-                                                $paymentDate = \Carbon\Carbon::parse($latestPayment->latest_date);
-                                                $paymentMonth = $paymentDate->month;
-                                                $paymentYear = $paymentDate->year;
-                                            @endphp
-                                            @if ($paymentMonth == $month && $paymentYear == $year)
-                                                <input type="checkbox" class="form-check-input mx-0" onclick="return false;"
-                                                    readonly checked />
-                                            @else
-                                                <input type="checkbox" class="form-check-input mx-0" onclick="return false;"
-                                                    readonly  />
-                                            @endif
+                                    <?php $find = 0; ?>
+                                    @foreach ($emplinpays as $emplinpay)
+                                        @if ($emplinpay->id_employe == $employe->id && $emplinpay->montant>0)
+                                            <?php $find = 1; ?>
+                                            Inpayé: {{$emplinpay->montant}}Dt
                                         @endif
                                     @endforeach
+                                    @if($find==0)
+                                        Payé
+                                    @endif
                                 </td>
 
                                 <td class=" align-items-center justify-content-center flex-column d-flex">
@@ -89,10 +83,11 @@
                                     <a href="{{ route('employes.show', $employe->id) }}" class="btn btn-sm btn-info m-1">
                                         Detaille
                                     </a>
-                                    <a href="{{ route('presenceEmpl.afficher', ['id' => $employe->id]) }}" class="btn btn-sm btn-info m-1">
+                                    <a href="{{ route('presenceEmpl.afficher', ['id' => $employe->id]) }}"
+                                        class="btn btn-sm btn-info m-1">
                                         Presence
                                     </a>
-                                    
+
                                 </td>
                             </tr>
                         @endforeach

@@ -19,36 +19,31 @@ class EmployesController extends Controller
     {
         $employes=Employes::where('etat',0)->get();
         $arch=0;
-        //e5er payement de chaqyue employé
-        $latestPayments = Histpaymts::select('id_employe')
-            ->selectRaw('MAX(date) as latest_date') 
-            ->groupBy('id_employe')  
-            ->orderByDesc('latest_date') 
-            ->get();
-
-        $currentDate = Carbon::now(); 
-        $previousMonthDate = $currentDate->subMonth(); 
-
-        $month = $previousMonthDate->format('m'); 
-        $year = $previousMonthDate->format('Y'); 
-
-        return view('pages.employe.index',compact('employes','arch','latestPayments','month','year'));
+        $emplinpays=Emplinpays::where('etat',0)->get();
+        return view('pages.employe.index',compact('employes','arch','emplinpays'));
     }
 
     public function indexArch()
     {
         $employes=Employes::where('etat',1)->get();
         $arch=1;
-        return view("pages.employe.index",compact('employes','arch'));
+        $emplinpays=Emplinpays::where('etat',0)->get();
+        return view("pages.employe.index",compact('employes','arch','emplinpays'));
     }
 
     public function store(Request $request)
     {
         Employes::create($request->all());
+        $employe=Employes::where('email', $request->email)->first();
         $user = User::create([
             'name'=>$request->nom . ' ' . $request->pnom,
             'email' => $request->email,
             'password' => Hash::make($request->tel),
+        ]);
+        Emplinpays::create([
+            'etat'=>0,
+            'montant' => 0,
+            'id_employe' => $employe->id,
         ]);
         $data = [
             'email' => $request->email,
@@ -98,6 +93,9 @@ class EmployesController extends Controller
         $employe=Employes::find($id);
         $employe->etat = $val;
         $employe->update();
+        $employeinp=Emplinpays::where('id_employe',$id)->first();
+        $employeinp->etat = $val;
+        $employeinp->update();      
         return redirect()->route('employes.index');
     }
 
