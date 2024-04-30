@@ -8,7 +8,7 @@
                     <div class=" border-light">
                         <div class="card-body">
                             <h5 class="text-white mb-0">
-                                Caisse:
+                                Salaire Restant:
                                 <span class="float-right">
                                     @if (isset($caisse->montant))
                                         {{ $caisse->montant }}

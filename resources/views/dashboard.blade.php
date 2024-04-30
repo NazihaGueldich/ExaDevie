@@ -10,7 +10,7 @@
                         <a href="{{ route('histcaisse.index') }}">
                             <div class="card-body">
                                 <h5 class="text-white mb-0">
-                                    Salaire Restant:
+                                    Caisse:
                                     <span class="float-right">
                                         @if (isset($caisse->totale))
                                             {{ $caisse->totale }}
