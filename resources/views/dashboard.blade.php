@@ -7,7 +7,7 @@
             <div class="card-content">
                 <div class=" m-0">
                     <div class=" border-light">
-                        <a href="{{ route('client.index') }}">
+                        <a href="{{ route('histcaisse.index') }}">
                             <div class="card-body">
                                 @php
                                     $widthnbclient = $nbclientTot > 0 ? ($nbclient * 100) / $nbclientTot : 0;
