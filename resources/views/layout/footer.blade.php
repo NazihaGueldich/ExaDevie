@@ -12,6 +12,38 @@
 </footer>
 <!--End footer-->
 
+{{-- update inpayement salaire --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function updateSalaire() {
+        $.ajax({
+            url: '{{ route('Employe.unpayer') }}',
+            type: 'GET',
+            data: {},
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    //bch yarah chhar jdid walla
+    function checkNewMonth() {
+        const now = new Date();
+        const isFirstOfMonth = now.getDate() === 1;
+        if (isFirstOfMonth) {
+            updateSalaire(); 
+        }
+    }
+    //koll nhar bch ythabat 
+    setInterval(checkNewMonth, 86400000); 
+</script>
+
+
+
 {{-- sweet alerte --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

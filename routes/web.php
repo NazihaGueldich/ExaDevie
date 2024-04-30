@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::resource("employes", EmployesController::class);
     Route::get('Employe/archive/{id}/{val}', [EmployesController::class, 'archive'])->name('Employe.archive');
     Route::get('Employe/archivee', [EmployesController::class, 'indexArch'])->name('Employe.archivee');
+    Route::get('Employe/inpayer', [EmployesController::class, 'unpayerEmpl'])->name('Employe.unpayer'); 
 
     //payement
     Route::resource("histpaymts", HistpaymtsController::class);
@@ -90,6 +91,7 @@ Route::middleware('auth')->group(function () {
 
     //historique caisse
     Route::resource("histcaisse", HistcaissesController::class);
+
 
     //blade employe
     //dashboard

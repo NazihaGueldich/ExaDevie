@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employes;
 use App\Models\Histpaymts;
+use App\Models\Emplinpays;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -99,4 +100,15 @@ class EmployesController extends Controller
         $employe->update();
         return redirect()->route('employes.index');
     }
+
+    public function unpayerEmpl(){
+        $employes_inpaye=Emplinpays::where('etat',0)->get();
+        foreach ($employes_inpaye as $employe) {
+            $emp=Employes::find($employe->id_employe);
+            $employe->montant+=$emp->salaire;
+            $employe->update();
+        }
+        return 'succes';
+    }
+
 }
