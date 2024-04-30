@@ -27,6 +27,7 @@
                            Congés</span></a>
                </li>
                <li><a href="{{ route('histpaymts.index') }}">$ &nbsp;&nbsp; <span>Historiques Payement</span></a></li>
+               <li><a href="{{ route('histcaisse.index') }}">$ &nbsp;&nbsp; <span>Historiques Caisse</span></a></li>
                <li><a href="{{ route('parameter.index') }}"><i class="zmdi zmdi-settings"></i>
                        <span>Paraméters</span></a></li>
            @else
@@ -39,6 +40,7 @@
                        <span>Calendrier</span></a></li>
                <li><a href="{{ route('demande_Conge') }}"><i class="zmdi zmdi-file-text"></i>
                        <span>Demande Conjé</span></a></li>
+               <li><a href="{{ route('employes.caisse') }}">$ &nbsp;&nbsp; <span>Historiques Caisse</span></a></li>
                <li><a href="{{ route('employes.edit') }}"><i class="zmdi zmdi-settings"></i>
                        <span>Paraméters</span></a></li>
            @endif

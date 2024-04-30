@@ -400,3 +400,21 @@ function openModalEditPaymt(date, type, virement, id) {
     $("input[name='_method']").val('put'); 
     $("#editpaymtfact").modal("show");  
 }
+
+
+function openModalCaisse(description,prix, id, action) {
+    if (action == "Modifier") {
+        $("#description").val(description);
+        $("#prix").val(prix);
+        $("#formhistcaiss").attr('action', "histcaisse/" + id);
+        $("input[name='_method']").val('put');
+    } else {
+        $("#description").val("");
+        $("#prix").val("");
+        $("#formhistcaiss").attr('action', RouteStore);
+        $("input[name='_method']").val('post');
+    }
+    $("#addHistCaisseLabel").html(action + " un mouvement de caisse")
+    modaleInclose('addhistcaiss');
+    $('#addhistcaiss').modal("show");
+}

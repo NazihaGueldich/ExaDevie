@@ -6,6 +6,7 @@ use App\Models\Factures;
 use App\Models\Clients;
 use App\Models\Devis;
 use App\Models\Employes;
+use App\Models\Caisses;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +62,9 @@ class DashboardController extends Controller
         })->toArray();
         $gangeSSums = $gangeS->pluck('sum')->toArray();
         $gangePSums = $gangeP->pluck('sum')->toArray();
-        return view('dashboard',compact('nbclient','nbclientTot','nbEmplTot','nbEmplC','nbdevC','nbdevA','nbFact','nbdevR','nbDev','nbfactS','nbfactP','gangeS','gangeP','months','gangeSSums','gangePSums'));
+
+        $caisse=Caisses::first();
+        return view('dashboard',compact('caisse','nbclient','nbclientTot','nbEmplTot','nbEmplC','nbdevC','nbdevA','nbFact','nbdevR','nbDev','nbfactS','nbfactP','gangeS','gangeP','months','gangeSSums','gangePSums'));
     }
 
     public function indexEmpl()

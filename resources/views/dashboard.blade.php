@@ -3,6 +3,32 @@
 @section('content')
     <div class="container-fluid">
         {{-- les card loulenin --}}
+        <div class="card mt-3 col-3">
+            <div class="card-content">
+                <div class=" m-0">
+                    <div class=" border-light">
+                        <a href="{{ route('client.index') }}">
+                            <div class="card-body">
+                                @php
+                                    $widthnbclient = $nbclientTot > 0 ? ($nbclient * 100) / $nbclientTot : 0;
+                                @endphp
+                                <h5 class="text-white mb-0">
+                                    Caisse:
+                                    <span class="float-right">
+                                        @if (isset($caisse->totale))
+                                            {{ $caisse->totale }}
+                                        @else
+                                            0
+                                        @endif
+                                        DT
+                                    </span>
+                                </h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card mt-3">
             <div class="card-content">
                 <div class="row row-group m-0">

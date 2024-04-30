@@ -12,6 +12,7 @@ use App\Http\Controllers\HistpaymtsController;
 use App\Http\Controllers\PresencesEmpsController;
 use App\Http\Controllers\DemndcongsController;
 use App\Http\Controllers\PayementfactsController;
+use App\Http\Controllers\HistcaissesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +88,9 @@ Route::middleware('auth')->group(function () {
     //payement facture
     Route::resource("paymtsfacts", PayementfactsController::class);
 
+    //historique caisse
+    Route::resource("histcaisse", HistcaissesController::class);
+
     //blade employe
     //dashboard
     Route::get('Welcame_Employe', [DashboardController::class, 'indexEmpl'])->name('Welcame_Employe');
@@ -106,5 +110,7 @@ Route::middleware('auth')->group(function () {
     Route::get('Employe/modifier', [EmployesController::class, 'edit'])->name('employes.edit');
     Route::post('Employe/update', [EmployesController::class, 'updateInf'])->name('employes.modifier');
 
+    //historique caisse
+    Route::get('Employe/caisse', [HistcaissesController::class, 'indexEmp'])->name('employes.caisse');
 });
 require __DIR__.'/auth.php';
