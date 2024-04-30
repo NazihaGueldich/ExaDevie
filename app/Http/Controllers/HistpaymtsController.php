@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Histpaymts;
 use App\Models\Employes;
+use App\Models\Emplinpays;
 use Illuminate\Http\Request;
 
 class HistpaymtsController extends Controller
@@ -18,6 +19,9 @@ class HistpaymtsController extends Controller
     public function store(Request $request)
     {
         Histpaymts::create($request->all());
+        $payement=Emplinpays::where('id_employe',$request->id_employe)->first();
+        $payement->montant-=$request->virement;
+        $payement->update();
         return redirect()->route('employes.index')->with([
             'success' => 1,
         ]);
