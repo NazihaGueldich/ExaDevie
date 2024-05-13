@@ -407,6 +407,7 @@
             </p>
             <p>{{ $facture->clients->tel }}</p>
             <p>{{ $facture->clients->email }}</p>
+            <p>CIN/MF:{{ $facture->clients->cin }}</p>
         </address>
         
         <address contenteditable class="left" style="margin-left:60%;font-size:16px;font-family: Georgia, serif;">
