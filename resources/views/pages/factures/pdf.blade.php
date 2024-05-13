@@ -471,7 +471,7 @@
             <tr>
                 <th><span contenteditable>Total TVA</span></th>
                 <?php
-                $MTVA = $facture->facture->MTTTC - $facture->MTHT;
+                $MTVA = $facture->MTTTC - $facture->MTHT;
                 ?>
                 <td><span contenteditable>{{ $MTVA }}</span><span contenteditable>
                         DT</span></td>
