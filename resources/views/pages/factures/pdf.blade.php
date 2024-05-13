@@ -409,12 +409,12 @@
             <p>{{ $facture->clients->email }}</p>
             <p>CIN/MF:{{ $facture->clients->cin }}</p>
         </address>
-        
+
         <address contenteditable class="left" style="margin-left:60%;font-size:16px;font-family: Georgia, serif;">
             <p>Date: <span contenteditable>{{ $facture->created_at->format('Y-m-d') }}</span> </p>
         </address>
         <br>
-        <div  style="font-size:15px; margin-top: 15%;margin-bottom: 3%;">
+        <div style="font-size:15px; margin-top: 15%;margin-bottom: 3%;">
             <h4>Sujet:</h4><br>
             <p> {{ $facture->sujet }}</p>
         </div>
@@ -424,12 +424,10 @@
 
                 <tr>
                     <th><span contenteditable>Type</span></th>
-                    <th><span contenteditable>Informations</span></th>
+                    <th><span contenteditable>Designiation</span></th>
                     <th><span contenteditable>Prix unitaire</span></th>
                     <th><span contenteditable>prix Totale</span></th>
                     <th><span contenteditable>TVA</span></th>
-                    <th><span contenteditable>THT</span></th>
-                    <th><span contenteditable>PTTTC</span></th>
 
                 </tr>
             </thead>
@@ -449,7 +447,6 @@
                                     <br>
                                     <strong>Quantité: </strong>{{ $ligniefacture->quantiter }}
                                 @else
-                                    <strong>Designiation: </strong><br>
                                     {{ $ligniefacture->designiation }}
                                 @endif
                             </span></td>
@@ -458,12 +455,6 @@
                         </td>
                         <td>
                             <span contenteditable>{{ $ligniefacture->tva }}%</span>
-                        </td>
-                        <td>
-                            <span contenteditable>{{ $ligniefacture->tht }} DT</span>
-                        </td>
-                        <td>
-                            <span contenteditable>{{ $ligniefacture->ptttc }} DT</span>
                         </td>
 
                     </tr>
@@ -479,12 +470,22 @@
 
             <tr>
                 <th><span contenteditable>Total TVA</span></th>
-                <td><span contenteditable>{{ $facture->MT }}</span><span contenteditable> DT</span></td>
+                <?php
+                $MTVA = $facture->facture->MTTTC - $facture->MTHT;
+                ?>
+                <td><span contenteditable>{{ $MTVA }}</span><span contenteditable>
+                        DT</span></td>
             </tr>
-
+            <tr>
+                <th><span contenteditable>Timber</span></th>
+                <td><span contenteditable>1,000</span><span contenteditable> DT</span></td>
+            </tr>
             <tr>
                 <th><span contenteditable>Total</span></th>
-                <td><span contenteditable>{{ $facture->MTTTC }}</span><span contenteditable> DT</span></td>
+                <?php
+                $MT = $facture->MTTTC + 1;
+                ?>
+                <td><span contenteditable>{{ $MT }}</span><span contenteditable> DT</span></td>
 
             </tr>
         </table>
