@@ -423,7 +423,7 @@
             <thead>
 
                 <tr>
-                    <th><span contenteditable>Type</span></th>
+                    <th><span contenteditable>Quantité</span></th>
                     <th><span contenteditable>Designiation</span></th>
                     <th><span contenteditable>Prix unitaire</span></th>
                     <th><span contenteditable>prix Totale</span></th>
@@ -435,17 +435,11 @@
                 @foreach ($ligniefactures as $ligniefacture)
                     <tr>
                         <td><span contenteditable>
-                                @if ($ligniefacture->type == 0)
-                                    Produits
-                                @else
-                                    Services
-                                @endif
+                                {{ $ligniefacture->quantiter }}
                             </span></td>
                         <td><span contenteditable>
                                 @if ($ligniefacture->type == 0)
-                                    <strong>Nom: </strong> {{ $ligniefacture->produits->nom }}
-                                    <br>
-                                    <strong>Quantité: </strong>{{ $ligniefacture->quantiter }}
+                                    {{ $ligniefacture->produits->nom }}
                                 @else
                                     {{ $ligniefacture->designiation }}
                                 @endif
