@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('email')->nullable();
             $table->string('tel')->nullable();
-            $table->integer('rib')->nullable();
-            $table->integer('mf')->nullable();
+            $table->text('rib')->nullable();
+            $table->text('mf')->nullable();
             $table->string('adresse')->nullable();
             $table->string('fax')->nullable();
             $table->timestamps();
