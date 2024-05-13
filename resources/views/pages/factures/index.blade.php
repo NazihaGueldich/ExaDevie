@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                     <div class="mb-3 mb-sm-0">
-                        <h5 class="card-title fw-semibold">Bondes Commendes</h5>
+                        <h5 class="card-title fw-semibold">Factures</h5>
                     </div>
                     <div class="d-flex align-items-center">
                         <a href="{{ route('factures.create') }}" type="button" class="btn btn-light btn-round px-5"><i

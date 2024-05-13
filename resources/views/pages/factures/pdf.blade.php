@@ -379,7 +379,7 @@
 
 <body>
     <header>
-        <h1 class="mb-5"> Bon de commende</h1>
+        <h1 class="mb-5"> Facture</h1>
 
 
         <address contenteditable class="left">
