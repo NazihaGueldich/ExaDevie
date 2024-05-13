@@ -379,7 +379,7 @@
 
 <body>
     <header>
-        <h1 class="mb-5"> Facture</h1>
+        <h1 class="mb-5"> Facture N°{{ $facture->num }}</h1>
 
 
         <address contenteditable class="left">
